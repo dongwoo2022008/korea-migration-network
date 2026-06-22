@@ -180,7 +180,7 @@ if LOUVAIN_OK:
         # 상위 연결 지역 간 가중 그래프 구성
         # PageRank 기반으로 상위 지역 간 완전 연결 그래프 생성 (근사)
         sub2 = df[df['year'] == yr][['region_code','name','pagerank','in_strength','out_strength']].copy()
-        G = nx.Graph()
+        G = nx.DiGraph()
         for _, row in sub2.iterrows():
             G.add_node(row['region_code'], name=row['name'], weight=row['pagerank'])
         # 엣지: in_strength × out_strength 기반 유사도 (근사)
