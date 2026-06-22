@@ -98,6 +98,4 @@ korea-migration-network/
 
 ---
 
-## 참고
 
-본 연구는 SSCI급 지역·도시·인구 분야 저널 투고를 목표로 한다.
