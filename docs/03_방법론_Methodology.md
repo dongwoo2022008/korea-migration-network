@@ -1,0 +1,235 @@
+# 3. 연구설계 및 분석 방법론
+
+## 3.1. 연구 설계 개요
+
+본 연구는 대한민국 229개 시군구를 분석 단위로 하여 2008~2025년의 인구이동 패널데이터를 구축하고, 세 가지 분석 트랙을 통해 인구이동 네트워크의 구조적 진화와 지역 흡인력 결정요인을 규명한다. 분석 설계는 기술적 탐색(Exploratory) → 인과 추정(Causal Inference) → 예측 및 해석(Predictive Explanation)의 단계적 구조를 따른다 (Figure 3-1).
+
+**Figure 3-1. 분석 설계 흐름도**
+
+```
+[트랙 A: 기술·네트워크 분석]        [트랙 B: 공간 패널 계량모형]       [트랙 C: ML 확장 트랙]
+2008~2025 (N=4,122)               2009~2024 (N=3,616)               2017~2024 (N=1,817)
+        ↓                                  ↓                                  ↓
+OD 행렬 구성 (229×229)            Two-way FE (기저 모형)              7개 알고리즘 비교
+네트워크 중심성 지표 산출           Spatial Lag/Error Model             (LR, DT, RF, GB,
+커뮤니티 탐지 (Louvain)            (SDM, 직접·간접효과 분해)            XGB, LGBM, CAT)
+Moran's I / LISA 분석             Dynamic FE-GMM (주모형)                    ↓
+허브 안정성 추적                   코로나19 상호작용항 검증             SHAP 분석
+        ↓                                  ↓                          RAI 지수 산출
+RQ1 대응                          RQ2·RQ3·RQ4 대응                   RQ5 대응
+```
+
+## 3.2. 분석 기간 및 데이터 가용성
+
+본 연구는 분석 목적에 따라 데이터 가용성을 고려하여 세 개의 트랙으로 분석 기간을 구분하여 운용한다 (Table 3-1).
+
+**트랙 A(기술·네트워크 분석)**는 네트워크 지표가 완전히 확보된 2008~2025년(18년) 전 기간을 활용한다 (N=4,122). 이 트랙은 인구이동 네트워크의 구조적 진화를 기술하는 것을 목적으로 하며, 2025년 데이터를 포함하여 최근 인구이동 패턴의 변화까지 포착한다.
+
+**트랙 B(공간 패널모형)**는 핵심 통제변수의 커버리지가 안정화되는 2009년부터 2024년(16년)까지를 분석 기간으로 설정한다 (N=3,616). 2008년 데이터는 1기 시차 변수($t-1$) 생성에 활용되며, 2025년은 고용률, 실업률, 자연증가율 등 주요 통제변수 16개가 공표 주기상 미집계 상태이므로 체계적 결측(Systematic Missing)에 의한 추정 편의를 방지하기 위해 계량모형에서 제외한다.
+
+**트랙 C(ML 확장 트랙)**는 사업체수, 고용률 등 경제·산업 변수의 시군구 단위 데이터가 완전히 확보되는 2017~2024년(8년)을 분석 기간으로 설정하여, 더 풍부한 변수셋(약 38개)으로 지역 흡인력 결정요인을 탐색한다 (N=1,817).
+
+**Table 3-1. 분석 트랙별 기간, 관측치 및 목적**
+
+| 트랙 | 분석 기간 | 관측치 (N) | 대응 RQ | 비고 |
+| :--- | :---: | :---: | :--- | :--- |
+| **A. 기술·네트워크** | 2008~2025 | 4,122 | RQ1 (네트워크 진화) | 2025년 포함 |
+| **B. 공간 패널모형** | 2009~2024 | 3,616 | RQ2·RQ3·RQ4 (인과 추정) | 2008년 시차용, 2025년 제외 |
+| **C. ML 확장 트랙** | 2017~2024 | 1,817 | RQ5 (흡인력 요인 탐색) | 경제·산업 변수 완전 확보 |
+
+## 3.3. 변수 구성 및 측정
+
+### 3.3.1. 종속변수
+
+본 연구의 주 종속변수는 해당 시군구의 **순이동률(Net Migration Rate)**이다. 순이동률은 (전입인구 − 전출인구) / 주민등록인구 × 1,000으로 산출하여 단위 인구당 순유입 규모를 측정한다. 보조 분석에서는 전입률(In-migration Rate)과 전출률(Out-migration Rate)을 별도의 종속변수로 활용하여 흡인(Attraction)과 반발(Repulsion) 메커니즘을 분리 분석한다.
+
+### 3.3.2. 핵심 독립변수: 네트워크 중심성 지표
+
+핵심 독립변수는 인구이동 네트워크 상의 위치를 나타내는 **PageRank**이다. PageRank는 이동망 내 간접적 파급효과까지 고려하여 지역의 실질적 영향력과 간접 흡인력을 측정하는 지표로, 단순 유입량 집계가 아닌 '어디서 이동해 오는가'의 질적 측면을 반영한다 [1]. 내생성(Endogeneity) 통제를 위해 1기 지연된 시차 변수($L.PageRank_{t-1}$)를 모형에 투입한다.
+
+강건성 검증을 위해 Table 3-2에 제시된 대체 중심성 지표를 추가로 산출하였다. 다중공선성(Multicollinearity) 방지를 위해 주모형에는 PageRank 단일 지표만 투입하고, 강건성 검증에서 다른 지표로 교체 투입하는 방식을 채택했다 [2].
+
+**Table 3-2. 네트워크 중심성 지표 구성**
+
+| 지표 | 의미 | 활용 목적 |
+| :--- | :--- | :--- |
+| **PageRank** | 이동망 내 간접 영향력 (주모형) | 흡인 허브 식별, 주모형 투입 |
+| In-Degree Centrality | 유입 연결 수 | 강건성 검증 |
+| In-Strength | 유입 이동량 합계 | 절대적 흡인력, 강건성 검증 |
+| Betweenness Centrality | 이동 경로 매개 역할 | 중간 거점 식별, 강건성 검증 |
+| Closeness Centrality | 전체 네트워크 접근성 | 네트워크 위치 기술 |
+| Out-Degree Centrality | 유출 연결 수 | 방출 허브 식별 |
+
+### 3.3.3. 통제변수
+
+통제변수는 선행연구를 바탕으로 경제, 인구구조, 인구동태, 의료, 교육, 복지, 생활SOC, 인프라, 입지 등 다차원적인 지역 특성을 반영하여 구성했다 (Table 3-3). 트랙 B(주모형)에는 결측률 5% 이하의 변수를 우선 투입하고, 결측률 6~20%인 변수는 선형 보간(Linear Interpolation)을 적용하여 보완 후 사용한다. 트랙 C(ML 확장)에서는 2017년 이후 완전히 확보되는 고용률, 사업체수, 노후주택비율 등 경제·산업 변수를 추가로 투입한다.
+
+**Table 3-3. 통제변수 구성**
+
+| 영역 | 변수명 | 설명 | 트랙 B | 트랙 C |
+| :--- | :--- | :--- | :---: | :---: |
+| 경제 | `fiscal_indep` | 재정자립도 (%) | ✅ | ✅ |
+| 경제 | `employ_rate` | 고용률 (%) | ⚠ 제외 | ✅ |
+| 경제 | `biz_count` | 사업체수 | ⚠ 제외 | ✅ |
+| 인구구조 | `youth_ratio` | 청년비율 20~39세 (%) | ✅ | ✅ |
+| 인구구조 | `aging_ratio` | 고령화율 65+ (%) | ✅ | ✅ |
+| 인구구조 | `ln_pop` | 로그인구 | ✅ | ✅ |
+| 인구구조 | `pop_density` | 인구밀도 (인/km²) | ✅ | ✅ |
+| 인구동태 | `fertility` | 합계출산율 | ✅ | ✅ |
+| 인구동태 | `nat_increase` | 자연증가율 | ✅ | ✅ |
+| 의료 | `doctor_per1000` | 천명당 의사수 | ✅ | ✅ |
+| 의료 | `hospital_bed` | 천명당 병상수 | ✅ | ✅ |
+| 교육 | `academy_pk` | 천명당 사설학원수 | ✅ | ✅ |
+| 생활SOC | `culture_facility_count` | 문화기반시설수 | ✅ | ✅ |
+| 복지 | `childcare_pk` | 유아 천명당 보육시설수 | ✅ | ✅ |
+| 복지 | `senior_fac_pk` | 노인 천명당 여가복지시설수 | ✅ | ✅ |
+| 인프라 | `sewer_supply` | 하수도보급률 (%) | ✅ | ✅ |
+| 인프라 | `house_age` | 노후주택비율 (%) | ⚠ 제외 | ✅ |
+| 입지 | `seoul_dist_km` | 서울시청까지 직선거리 (km) | ✅ | ✅ |
+| 소멸위험 | `extinction_risk` | 소멸위험지수 | △ 보간 | ✅ |
+
+## 3.4. 트랙 A: 인구이동 네트워크 분석
+
+### 3.4.1. OD 행렬 구성 및 네트워크 지표 산출
+
+트랙 A에서는 연도별 229 × 229 OD(Origin-Destination) 행렬을 구성하여 방향성 가중 네트워크(Directed Weighted Network)를 생성한다. 각 행렬의 원소 $w_{ij,t}$는 연도 $t$에 지역 $i$에서 지역 $j$로 이동한 인구수를 나타낸다. 이를 기반으로 Table 3-2에 제시된 6개의 중심성 지표를 연도별로 산출하며, Python의 NetworkX 라이브러리를 활용한다.
+
+### 3.4.2. 커뮤니티 탐지 및 네트워크 집중도 분석
+
+커뮤니티 탐지는 **Louvain Algorithm**을 적용하여 연도별 모듈성(Modularity)을 산출하고, 이동 군집의 구조적 변화를 추적한다 [3]. 네트워크 집중도 분석을 위해 네트워크 밀도(Density)와 In-Strength 기준 허핀달 지수(HHI)를 연도별로 산출하여 소수 거점 도시로의 '쏠림 현상' 심화 여부를 정량화한다. 실제 분석 결과, HHI는 2009년 0.0087에서 2019년 0.0090으로 증가하여 집중도 심화 추세를 확인하였다.
+
+### 3.4.3. 공간 자기상관 분석 (Moran's I / LISA)
+
+순이동률의 공간적 분포 패턴을 파악하기 위해 **글로벌 Moran's I** 통계량을 연도별로 산출한다. 분석 결과, 2009~2024년 동안 Moran's I 값은 0.07~0.21 범위의 양(+)의 유의미한 값을 기록하여 강한 공간적 의존성을 확인하였다. 또한 **LISA(Local Indicators of Spatial Association)** 분석을 통해 Hot-spot(High-High) 및 Cold-spot(Low-Low) 클러스터를 도출하여 인구 유입·유출의 공간적 군집 구조를 시각화한다.
+
+### 3.4.4. 허브 안정성 분석
+
+네트워크 구조의 고착화 여부를 검증하기 위해 **허브 안정성 분석(Hub Persistence Analysis)**을 수행한다. 2008년 PageRank 상위 20개 지역이 2025년까지 얼마나 지위를 유지하는지를 추적하고, 연도별 네트워크 유사성을 Jaccard Similarity 계수로 측정한다.
+
+## 3.5. 트랙 B: 공간 패널 계량모형
+
+### 3.5.1. 단계적 추정 전략
+
+인구이동은 인접 지역 간 강한 상호작용을 수반하므로, 단순 OLS나 고정효과(FE) 모형은 공간적 의존성을 무시하여 편향된 추정치를 도출할 수 있다. 본 연구는 리뷰어 방어에 유리한 **3단계 추정 전략**을 채택한다.
+
+**[Model 1] Two-way Fixed Effects (FE):** 지역 고정효과($\mu_i$)와 연도 고정효과($\lambda_t$)를 동시에 통제하는 기저 모형이다. Hausman 검정을 통해 고정효과 모형과 확률효과 모형 중 적합한 모형을 선택한다.
+
+**[Model 2] Spatial Durbin Model (SDM):** Moran's I 검정을 통해 잔차의 공간 자기상관성이 확인되면 공간 패널 모형을 적용한다. SDM은 독립변수의 공간 시차항도 포함하여 파급효과(Spillover Effect)를 가장 유연하게 포착하는 모형이다 [4]. SAR/SEM 제한 검정(Likelihood Ratio Test)을 통해 최적 모형을 선택한다.
+
+**[Model 3] Dynamic FE-GMM (System GMM, 주모형):** 종속변수의 시차항($y_{i,t-1}$)을 포함하여 동태성과 내생성을 동시에 통제하는 최종 주모형이다. 네트워크 지표의 2기 이상 시차를 도구변수(Instrument Variable)로 활용하며, Arellano-Bond AR(2) 검정과 Hansen 과대식별 검정으로 모형 타당성을 검증한다.
+
+### 3.5.2. 공간 패널 모형 수식
+
+SLM(Spatial Lag Model)의 기본 추정식은 다음과 같다.
+
+$$y_{it} = \rho \sum_{j=1}^{N} W_{ij} y_{jt} + \beta_1 PageRank_{i,t-1} + \sum_{k=1}^{K} \gamma_k X_{kit} + \mu_i + \lambda_t + \varepsilon_{it}$$
+
+여기서 $y_{it}$는 지역 $i$의 연도 $t$의 순이동률, $W_{ij}$는 공간 가중치 행렬, $\rho$는 공간 지체 모수, $X_{kit}$는 통제변수 벡터, $\mu_i$는 지역 고정효과, $\lambda_t$는 연도 고정효과, $\varepsilon_{it}$는 오차항이다. 모형 추정 후에는 LeSage & Pace(2009)의 방법론에 따라 각 독립변수의 영향을 **직접효과(Direct Effect)**, **간접효과(Indirect Effect, Spillover)**, **총효과(Total Effect)**로 분해하여 해석한다 [5].
+
+### 3.5.3. 공간 가중치 행렬(W)의 다변화
+
+단일 $W$ 사용에 대한 방법론적 비판을 방지하기 위해 3가지 유형의 가중치 행렬을 구성하여 결과를 비교한다.
+
+**Table 3-4. 공간 가중치 행렬 유형 비교**
+
+| 유형 | 정의 | 특징 |
+| :--- | :--- | :--- |
+| **Queen Contiguity** (기본) | 꼭짓점 하나라도 닿아있는 인접 지역 | 행정 경계 기반, 직관적 |
+| **K-Nearest Neighbors (K=5)** | 지리적 중심점 기준 가장 가까운 5개 지역 | 섬 지역(제주 등) 고립 문제 해결 |
+| **Inverse Distance** | 거리의 역수로 가중치 부여 | 거리에 따른 연속적 감쇠 반영 |
+
+### 3.5.4. 코로나19 효과의 정밀한 통제
+
+단순 연도 더미가 아닌, 핵심 변수와의 **상호작용항(Interaction Term)**을 투입하여 코로나19 팬데믹이 인구이동 결정구조에 미친 구조적 변화를 검증한다. `COVID_t` 더미(2020~2022년=1, 그 외=0)와 PageRank, 재정자립도 간의 상호작용항을 투입하여 "코로나 이후 네트워크 중심성이 인구 유입에 미치는 영향력이 유의하게 변화하였는가?"를 실증한다.
+
+### 3.5.5. 이질성 분석 및 강건성 검증
+
+**Table 3-5. 이질성 분석 및 강건성 검증 계획**
+
+| 분석 유형 | 방법 | 목적 |
+| :--- | :--- | :--- |
+| 수도권 vs. 비수도권 | 더미 상호작용항 또는 하위 표본 분리 추정 | 공간적 이질성 확인 |
+| 코로나 전후 | Chow Test (2020년 기준) | 시간적 이질성 확인 |
+| 도시 규모별 | 특광역시·시·군 분리 추정 | 도시 유형별 이질성 |
+| 대체 중심성 지표 | PageRank → In-strength, Betweenness 교체 | 측정 방식 강건성 |
+| 대체 공간 가중치 | Queen → KNN, Inverse Distance 교체 | W 선택 강건성 |
+
+## 3.6. 트랙 C: 머신러닝 기반 지역 흡인력 분석
+
+### 3.6.1. 비교 모형 및 교차검증
+
+전통적 계량모형의 선형성 가정을 극복하고 복잡한 비선형 상호작용을 포착하기 위해 7개의 알고리즘을 비교 평가한다 (Table 3-6). 교차검증 시 지역 단위 패널 데이터의 누수(Data Leakage)를 방지하기 위해 **Group Time Series Split** 방식을 적용한다 [6]. 이 방식은 지역(`region_code`)을 Group으로 설정하여, 학습 시 특정 지역 셋의 과거~현재 데이터를 사용하고, 검증 시 완전히 다른 지역 셋의 미래 데이터를 평가한다. 하이퍼파라미터 튜닝은 Optuna 기반 베이지안 최적화를 적용한다.
+
+**Table 3-6. 머신러닝 비교 모형**
+
+| 모형 | 약칭 | 역할 |
+| :--- | :--- | :--- |
+| Linear Regression | LR | 기저 선형 모형 |
+| Decision Tree | DT | 비선형 기저 모형 |
+| Random Forest | RF | 앙상블 (배깅) |
+| Gradient Boosting | GB | 앙상블 (부스팅) |
+| XGBoost | XGB | 주력 부스팅 모형 |
+| LightGBM | LGBM | 주력 부스팅 모형 |
+| CatBoost | CAT | 범주형 변수 특화 |
+
+실제 분석 결과, LightGBM (R²=0.6675, RMSE=10.13)과 XGBoost (R²=0.6902, RMSE=9.78)가 가장 우수한 성능을 기록하였으며, 트리 기반 앙상블 모델들이 선형 회귀(R²=0.1887) 대비 압도적인 설명력을 보여 지역 흡인력 결정 과정에 강한 비선형성이 존재함을 시사하였다.
+
+**Table 3-7. 모형 성능 평가 지표**
+
+| 지표 | 설명 | 기준 |
+| :--- | :--- | :--- |
+| R² (결정계수) | 모형 설명력 | 높을수록 우수 |
+| RMSE (평균제곱근오차) | 예측 오차 크기 | 낮을수록 우수 |
+| MAE (평균절대오차) | 예측 오차 절댓값 | 낮을수록 우수 |
+
+### 3.6.2. SHAP 기반 변수 중요도 분석
+
+최적 모형에 **SHAP (SHapley Additive exPlanations)** 기법을 적용하여 변수 중요도(Feature Importance)를 추출하고, 지역 흡인력의 비선형적 임계점(Threshold)을 규명한다 [7]. 머신러닝 모델은 일반적으로 우수한 예측 성능을 보이지만, 해석 가능성의 한계로 인해 정책 적용에 어려움이 있다. SHAP은 게임 이론의 Shapley 값을 기반으로 각 변수가 개별 예측에 기여하는 정도를 정량화하여 이러한 한계를 극복한다.
+
+**Table 3-8. SHAP 분석 출력물 계획**
+
+| 분석 | 출력물 | 목적 |
+| :--- | :--- | :--- |
+| SHAP Summary Plot (Beeswarm) | 전체 변수 중요도 및 방향성 | 흡인력 결정요인 규명 |
+| SHAP Bar Plot | 변수 중요도 순위 | 상위 10개 변수 식별 |
+| SHAP Dependence Plot | 주요 변수별 비선형 효과 | 임계값·역전 효과 탐지 |
+| SHAP Force Plot | 개별 지역 예측 분해 | 사례 해석 (서울·세종·지방 비교) |
+| SHAP Interaction Plot | 변수 간 상호작용 | 복합 효과 탐지 |
+
+실제 분석 결과, PageRank의 Mean |SHAP| 값이 14.38로 2위 변수(ln_population, 6.92) 대비 2배 이상 높은 압도적 1위를 기록하였다. 이는 네트워크 상의 허브 지위가 인구 흡인의 가장 강력한 결정요인임을 의미한다.
+
+### 3.6.3. 지역 흡인력 지수(RAI) 산출
+
+SHAP 분석 결과를 바탕으로 각 지역의 **지역 흡인력 지수(Regional Attractiveness Index, RAI)**를 산출한다. 단순 예측값과의 차별성을 확보하고 지수 구성의 이론적 타당성을 높이기 위해, SHAP 값을 4개 영역으로 묶어 하위 지수(Sub-index)화한 후 Z-score로 표준화하여 종합 지수(Total RAI)를 도출한다.
+
+$$RAI_i^{Total} = Z\left(\sum_{j \in Econ} SHAP_{ji}\right) + Z\left(\sum_{j \in Demo} SHAP_{ji}\right) + Z\left(\sum_{j \in Infra} SHAP_{ji}\right) + Z\left(\sum_{j \in Serv} SHAP_{ji}\right)$$
+
+여기서 $Z(\cdot)$는 Z-score 표준화 함수이며, $Econ$, $Demo$, $Infra$, $Serv$는 각각 경제, 인구, 인프라, 서비스 영역의 변수 집합을 나타낸다.
+
+## 3.7. 연구 윤리 및 재현 가능성
+
+본 연구에서 활용하는 모든 데이터는 통계청, 행정안전부, 건강보험심사평가원 등 공공기관의 공식 통계로서 개인정보를 포함하지 않는 집계 데이터이다. 분석에 활용된 코드 및 데이터 전처리 스크립트는 GitHub 저장소(`dongwoo2022008/korea-migration-network`)에 공개하여 연구의 재현 가능성(Reproducibility)을 보장한다.
+
+---
+
+## References
+
+[1] Page, L., Brin, S., Motwani, R., & Winograd, T. (1999). *The PageRank citation ranking: Bringing order to the web*. Stanford InfoLab. http://ilpubs.stanford.edu:8090/422/
+
+[2] Freeman, L. C. (1978). Centrality in social networks conceptual clarification. *Social Networks*, 1(3), 215–239. https://doi.org/10.1016/0378-8733(78)90021-7
+
+[3] Blondel, V. D., Guillaume, J. L., Lambiotte, R., & Lefebvre, E. (2008). Fast unfolding of communities in large networks. *Journal of Statistical Mechanics: Theory and Experiment*, 2008(10), P10008. https://doi.org/10.1088/1742-5468/2008/10/P10008
+
+[4] Elhorst, J. P. (2014). *Spatial Econometrics: From Cross-Sectional Data to Spatial Panels*. Springer. https://doi.org/10.1007/978-3-642-40340-8
+
+[5] LeSage, J., & Pace, R. K. (2009). *Introduction to Spatial Econometrics*. CRC Press. https://doi.org/10.1201/9781420064254
+
+[6] Roberts, D. R., Bahn, V., Ciuti, S., Boyce, M. S., Elith, J., Guillera-Arroita, G., ... & Dormann, C. F. (2017). Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. *Ecography*, 40(8), 913–929. https://doi.org/10.1111/ecog.02881
+
+[7] Lundberg, S. M., & Lee, S. I. (2017). A unified approach to interpreting model predictions. *Advances in Neural Information Processing Systems*, 30. https://proceedings.neurips.cc/paper/2017/hash/8a20a8621978632d76c43dfd28b67767-Abstract.html
+
+[8] Anselin, L. (1995). Local indicators of spatial association—LISA. *Geographical Analysis*, 27(2), 93–115. https://doi.org/10.1111/j.1538-4632.1995.tb00338.x
+
+[9] Arellano, M., & Bond, S. (1991). Some tests of specification for panel data: Monte Carlo evidence and an application to employment equations. *The Review of Economic Studies*, 58(2), 277–297. https://doi.org/10.2307/2297968
+
+[10] Lee, L. F., & Yu, J. (2010). Estimation of spatial autoregressive panel data models with fixed effects. *Journal of Econometrics*, 154(2), 165–185. https://doi.org/10.1016/j.jeconom.2009.08.001
