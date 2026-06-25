@@ -99,50 +99,50 @@ Figure 4-3은 5개 중심성 지표(PageRank, Betweenness, Closeness, In-Degree,
 
 ### 4.2.3 커뮤니티 구조 변화
 
-Louvain 알고리즘을 실제 시군구 간 인구이동 OD(Origin-Destination) 행렬에 적용하여 2008~2025년 인구이동 네트워크의 커뮤니티 구조 변화를 분석하였다. 분석에는 `migration_long.parquet`의 전체 연령·성별 합산 이동자수(flow)를 엣지 가중치로 사용한 무방향 가중 네트워크를 구성하였으며, Louvain 알고리즘(python-louvain v0.16, random_state=42)을 적용하였다. Figure 4-4와 Figure 4-5는 각각 2008년과 2025년의 커뮤니티 탐지 결과를 시군구 행정구역 경계 위에 표현한 것이다.
+Louvain 알고리즘을 시군구 간 인구이동 OD(Origin-Destination) 행렬에 적용하여 2006~2025년 인구이동 네트워크의 커뮤니티 구조 변화를 분석하였다. 분석에는 자기루프(동일 시군구 내 이동)를 제거한 순수 시군구 간 이동 흐름을 엣지 가중치로 사용한 무방향 가중 네트워크(n=229)를 구성하였으며, Louvain 알고리즘(python-louvain v0.16, random_state=42)을 적용하였다. Figure 4-4와 Figure 4-5는 각각 2008년과 2025년의 커뮤니티 탐지 결과를 시군구 행정구역 경계 위에 표현한 것이다.
 
 ![Figure 4-4. Louvain Community Detection Map (2008)](../results/figures/fig4_4_louvain_2008.png)
 
-*Note: Communities detected via Louvain algorithm applied to the undirected flow-weighted OD migration network (all ages, both sexes). Node count: 229 municipalities. Communities sorted by size (descending). Modularity = 0.683.*
+*Note: Communities detected via Louvain algorithm applied to the undirected inter-municipal OD migration network (self-loops removed, all ages, both sexes). Node count: 229 municipalities. Communities sorted by size (descending). Modularity = 0.498.*
 
 ![Figure 4-5. Louvain Community Detection Map (2025)](../results/figures/fig4_5_louvain_2025.png)
 
-*Note: Same methodology as Figure 4-4. Modularity = 0.634. Comparison with 2008 reveals structural consolidation: community count decreased from 18 to 14, reflecting the broadening of migration catchment areas.*
+*Note: Same methodology as Figure 4-4. Modularity = 0.442. Comparison with 2008 reveals structural consolidation: community count maintained at 6, while isolated nodes decreased from 46 to 12, reflecting the broadening of migration catchment areas.*
 
-분석 결과, 2008년에는 18개의 커뮤니티(Modularity=0.683)가 탐지되었다. 최대 커뮤니티(Community 1, n=35)는 수도권 중심부(서울·경기 핵심 지역)를 포함하였으며, Community 2(n=28)는 경기 남부·충청권, Community 3(n=27)은 영남권 내륙 지역으로 구성되었다. 이는 한국의 인구이동이 수도권 집중이라는 단일 구조가 아니라, 권역 내 순환 이동과 권역 간 장거리 이동이 공존하는 다층적 커뮤니티 구조를 형성하고 있음을 보여준다.
+분석 결과, 2008년에는 6개의 실질 커뮤니티(Modularity=0.498)가 탐지되었으며, 46개 시군구는 고립 노드(isolated nodes)로 나타났다. 실질 커뮤니티는 수도권·경기권 블록, 충청·세종권 블록, 호남권 블록, 영남권 블록, 강원권 블록, 제주·도서권 블록의 6대 광역 권역 구조를 형성하였다. 이는 한국의 인구이동이 수도권 집중이라는 단일 구조가 아니라, 광역 권역 단위의 순환 이동과 권역 간 장거리 이동이 공존하는 다층적 커뮤니티 구조를 형성하고 있음을 보여준다.
 
-2025년에는 커뮤니티 수가 14개(Modularity=0.634)로 감소하였다. 이는 인구이동 권역이 광역화되면서 기존의 소규모 커뮤니티들이 인접 대형 커뮤니티에 흡수되는 구조적 통합이 진행되고 있음을 의미한다. 특히 세종시 출범(2012년) 이후 충청권의 이동 패턴이 수도권과의 연계성을 강화하면서 독립적 커뮤니티 경계가 약화된 것으로 해석된다.
+2025년에는 커뮤니티 수가 6개(Modularity=0.442)를 유지하였으나, 고립 노드가 12개로 크게 감소하였다. 이는 인구이동 네트워크의 연결성이 전반적으로 강화되면서 기존에 이동 흐름이 미약했던 소규모 시군구들도 네트워크에 편입되는 구조적 통합이 진행되고 있음을 의미한다. 특히 2023~2025년에 고립 노드가 24→12개로 급감한 것은 수도권 광역화 및 교통 인프라 확충에 따른 이동 권역의 확장과 일관된 결과이다.
 
-Table 4-9는 전체 분석 기간의 연도별 커뮤니티 개수와 Modularity 지수를 정리한 것이다. Modularity는 2006~2011년 0.686~0.688 수준에서 점진적으로 하락하여 2025년에는 0.634까지 감소하였다. 이러한 Modularity의 장기적 하락 추세는 시군구 간 인구이동 네트워크의 커뮤니티 경계가 점차 약화되고 있음을 의미하며, 이는 교통 인프라 확충, 수도권 광역화, 세종시 등 신도시 성장에 따른 이동 권역의 광역화와 일관된 결과이다.
+Table 4-9는 전체 분석 기간의 연도별 커뮤니티 개수와 Modularity 지수를 정리한 것이다. Modularity는 2006~2009년 0.497~0.503 수준에서 점진적으로 하락하여 2025년에는 0.442까지 감소하였다. 이러한 Modularity의 장기적 하락 추세는 시군구 간 인구이동 네트워크의 커뮤니티 경계가 점차 약화되고 있음을 의미하며, 이는 교통 인프라 확충, 수도권 광역화, 세종시 등 신도시 성장에 따른 이동 권역의 광역화와 일관된 결과이다.
 
-**Table 4-9. 연도별 커뮤니티 개수 및 Modularity (2006~2025, OD 네트워크 기반)**
+**Table 4-9. 연도별 커뮤니티 개수 및 Modularity (2006~2025, 자기루프 제거 OD 네트워크)**
 
-| Year | Communities | Modularity |
-|:---:|:---:|:---:|
-| 2006 | 19 | 0.6865 |
-| 2007 | 16 | 0.6808 |
-| 2008 | 18 | 0.6826 |
-| 2009 | 18 | 0.6819 |
-| 2010 | 17 | 0.6807 |
-| 2011 | 18 | 0.6877 |
-| 2012 | 17 | 0.6765 |
-| 2013 | 18 | 0.6843 |
-| 2014 | 17 | 0.6870 |
-| 2015 | 17 | 0.6868 |
-| 2016 | 16 | 0.6800 |
-| 2017 | 17 | 0.6755 |
-| 2018 | 17 | 0.6728 |
-| 2019 | 17 | 0.6685 |
-| 2020 | 17 | 0.6727 |
-| 2021 | 16 | 0.6567 |
-| 2022 | 15 | 0.6413 |
-| 2023 | 16 | 0.6418 |
-| 2024 | 15 | 0.6468 |
-| 2025 | 14 | 0.6343 |
+| Year | Real Communities | Isolated Nodes | Connected Nodes | Modularity | Max Comm. Size |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| 2006 | 6 | 46 | 183 | 0.5009 | 38 |
+| 2007 | 6 | 46 | 183 | 0.4965 | 40 |
+| 2008 | 6 | 46 | 183 | 0.4977 | 40 |
+| 2009 | 6 | 49 | 180 | 0.5028 | 40 |
+| 2010 | 6 | 47 | 182 | 0.4921 | 39 |
+| 2011 | 6 | 48 | 181 | 0.4843 | 38 |
+| 2012 | 6 | 46 | 183 | 0.4776 | 38 |
+| 2013 | 6 | 45 | 184 | 0.4771 | 39 |
+| 2014 | 6 | 45 | 184 | 0.4838 | 40 |
+| 2015 | 7 | 45 | 184 | 0.4803 | 38 |
+| 2016 | 6 | 44 | 185 | 0.4822 | 38 |
+| 2017 | 6 | 44 | 185 | 0.4850 | 41 |
+| 2018 | 6 | 43 | 186 | 0.4803 | 39 |
+| 2019 | 6 | 43 | 186 | 0.4847 | 38 |
+| 2020 | 6 | 43 | 186 | 0.4828 | 39 |
+| 2021 | 6 | 43 | 186 | 0.4676 | 39 |
+| 2022 | 6 | 43 | 186 | 0.4604 | 38 |
+| 2023 | 6 | 24 | 205 | 0.4486 | 55 |
+| 2024 | 6 | 12 | 217 | 0.4498 | 55 |
+| 2025 | 6 | 12 | 217 | 0.4423 | 56 |
 
-*Note: Community detection performed using the Louvain algorithm (python-louvain v0.16, random_state=42) applied to the undirected flow-weighted OD migration network. Edge weight = total migration flow (all ages, both sexes). Modularity computed using the standard Newman-Girvan formula. Input: migration_long.parquet (dataset='flow', unit='sgg').*
+*Note: Community detection performed using the Louvain algorithm (python-louvain v0.16, random_state=42) applied to the undirected inter-municipal OD migration network with self-loops removed. Edge weight = total inter-municipal migration flow (all ages, both sexes). Real Communities = communities with ≥3 nodes. Isolated Nodes = nodes with no inter-municipal connections. Modularity computed using the standard Newman-Girvan formula.*
 
-커뮤니티 수가 2021년 이후 지속적으로 감소(16→15→14개)하는 것은 COVID-19 팬데믹 이후 이동 패턴의 재편과 수도권 광역화가 동시에 진행된 결과로 해석된다. 또한 2018~2021년 Modularity가 상대적으로 낮아진 것(0.657~0.673)은 팬데믹 이전부터 진행된 수도권 교외화 및 세종시 성장으로 인해 기존 커뮤니티 경계가 약화되었음을 시사한다. 이는 국토 공간이 수도권으로의 집중과 비수도권 내부의 순환 이동이라는 이중 구조를 유지하면서도, 세종시 중심의 새로운 광역 커뮤니티 재편이 진행 중임을 방증한다.
+커뮤니티 수가 2006~2025년 동안 6개(2015년 예외적으로 7개)로 안정적으로 유지된 것은 대한민국 인구이동 네트워크가 광역 권역 단위의 강한 구조적 일관성을 가지고 있음을 시사한다. 반면 Modularity의 장기적 하락(0.503→0.442)은 권역 간 이동이 점차 증가하면서 커뮤니티 경계가 약화되는 추세를 반영한다. 특히 2021~2022년 Modularity가 상대적으로 낮아진 것(0.460~0.468)은 팬데믹 이전부터 진행된 수도권 교외화 및 세종시 성장으로 인해 기존 커뮤니티 경계가 약화되었음을 시사한다. 이는 국토 공간이 수도권으로의 집중과 비수도권 내부의 순환 이동이라는 이중 구조를 유지하면서도, 세종시 중심의 새로운 광역 커뮤니티 재편이 진행 중임을 방증한다.
 
 ### 4.2.4 네트워크 집중도 변화
 
