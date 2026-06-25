@@ -148,7 +148,9 @@ Table 4-9는 전체 분석 기간의 연도별 커뮤니티 개수와 Modularity
 
 네트워크 전체의 구조적 집중도 변화를 파악하기 위해 Freeman Centralization 지수와 HHI를 연도별로 산출하였다. 분석 결과, 상위 허브로의 이동 집중은 2008년 이후 지속적으로 심화되는 추세를 보였다. 이는 허브 지역의 흡인력이 시간이 지날수록 더욱 강화되고 있음을 시사한다.
 
-![Figure 4-1. 인구이동 네트워크 PageRank 허브 중심성 지도 (2024)](../results/figures/fig_map1_pagerank_choropleth.png)
+![Figure 4-6. 시군구별 PageRank 중심성의 공간적 분포 (2024)](../results/figures/fig4_6_pagerank_choropleth.png)
+
+*Note: Choropleth map of PageRank centrality across 229 municipalities (2024). Darker shades indicate higher centrality. Top hub: 화성시 (PageRank=0.01900). Metropolitan regions (Seoul, Gyeonggi, Incheon) show extreme concentration of centrality.*
 
 (위 그림은 2024년 기준 시군구별 PageRank 중심성의 공간적 분포를 보여주며, 수도권 및 일부 거점 도시에 중심성이 극단적으로 편중되어 있음을 시각적으로 확인해준다.)
 
@@ -183,7 +185,7 @@ Table 4-10과 Figure 4-7은 2009~2024년 순이동률의 공간적 자기상관 
 
 *Note: Moran's I statistics were estimated using row-standardized K-nearest neighbor weights (K=5). Statistical significance was assessed using 999 Monte Carlo permutations. \* p<0.05, \*\* p<0.01.*
 
-![Figure 4-7. 연도별 Global Moran's I 변화 추이 (2009–2024)](../results/figures/fig4_1_morans_i_trend.png)
+![Figure 4-7. 연도별 Global Moran's I 변화 추이 (2009–2024)](../results/figures/fig4_7_morans_i_trend.png)
 
 *Note: The shaded area indicates the COVID-19 pandemic period (2020–2021). The dashed line represents the linear trend (slope=+0.0026/year). Filled markers indicate statistically significant values (p<0.05).*
 
