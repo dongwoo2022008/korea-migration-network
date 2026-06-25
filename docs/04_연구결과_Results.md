@@ -99,7 +99,46 @@ Figure 4-3은 5개 중심성 지표(PageRank, Betweenness, Closeness, In-Degree,
 
 ### 4.2.3 커뮤니티 구조 변화
 
-Louvain 알고리즘을 통한 커뮤니티 탐지 결과, 대한민국 인구이동 네트워크는 분석 기간 내내 크게 2개의 거대 커뮤니티(수도권-충청권 블록 vs 남부권 블록)로 분할되는 거시적 모듈성(Modularity ≈ 0.07)을 안정적으로 유지하였다. 이는 국토 공간이 수도권으로의 블랙홀 현상과 비수도권 내부의 순환 이동이라는 이중 구조로 고착화되어 있음을 방증한다.
+Louvain 알고리즘을 적용하여 2008~2025년 인구이동 네트워크의 커뮤니티 구조 변화를 분석하였다. Figure 4-4와 Figure 4-5는 각각 2008년과 2025년의 Louvain 커뮤니티 탐지 결과를 시군구 지도 위에 표현한 것이다.
+
+![Figure 4-4. Louvain Community Detection Map (2008)](../results/figures/fig4_4_louvain_2008.png)
+
+*Note: Communities detected via Louvain algorithm applied to the undirected migration network weighted by in-migration strength. Color shading represents distinct community blocks.*
+
+![Figure 4-5. Louvain Community Detection Map (2025)](../results/figures/fig4_5_louvain_2025.png)
+
+*Note: Same methodology as Figure 4-4. Comparison with 2008 reveals structural consolidation of the metropolitan community block.*
+
+분석 결과, 2008년에는 17개의 커뮤니티(Modularity=0.748)가 탐지되었으며, 수도권 블록(서울·경기·인천, n=25), 충청권 블록(대전·충남·충북·세종, n=9), 남부 전라권 블록(광주·전남·전북, n=30), 동남권 블록(부산·대구·울산·경남·경북, n=5), 강원권 블록(n=11)의 5대 광역 커뮤니티 구조가 뚜렷하게 형성되어 있었다. 2025년에도 동일하게 17개 커뮤니티(Modularity=0.749)가 탐지되어 커뮤니티 수는 유지되었으나, 세종시 출범(2012년) 이후 충청권 블록이 수도권 블록과의 연결성을 강화하면서 세종시 중심의 재편이 진행된 것으로 나타났다.
+
+Table 4-9는 전체 분석 기간의 연도별 커뮤니티 개수와 Modularity 지수를 정리한 것이다. Modularity는 2008~2013년 0.748~0.757 수준을 유지하다가, 2014~2021년 사이 0.736~0.761로 소폭 변동하였으며, 2022~2025년에는 0.746~0.752 수준으로 안정화되었다. 전반적으로 높은 Modularity 값(평균 0.749)은 대한민국 인구이동 네트워크가 광역 권역 단위의 강한 커뮤니티 구조를 지속적으로 유지하고 있음을 의미한다.
+
+**Table 4-9. 연도별 커뮤니티 개수 및 Modularity (2008~2025)**
+
+| Year | Communities | Modularity |
+|:---:|:---:|:---:|
+| 2008 | 17 | 0.7482 |
+| 2009 | 17 | 0.7496 |
+| 2010 | 17 | 0.7450 |
+| 2011 | 17 | 0.7559 |
+| 2012 | 17 | 0.7530 |
+| 2013 | 17 | 0.7569 |
+| 2014 | 16 | 0.7611 |
+| 2015 | 16 | 0.7576 |
+| 2016 | 16 | 0.7501 |
+| 2017 | 16 | 0.7499 |
+| 2018 | 16 | 0.7361 |
+| 2019 | 16 | 0.7406 |
+| 2020 | 16 | 0.7365 |
+| 2021 | 16 | 0.7380 |
+| 2022 | 16 | 0.7522 |
+| 2023 | 16 | 0.7472 |
+| 2024 | 17 | 0.7462 |
+| 2025 | 17 | 0.7489 |
+
+*Note: Community detection performed using the Louvain algorithm (python-louvain v0.16) with Queen contiguity-weighted undirected graph. Modularity computed using the standard Newman-Girvan formula.*
+
+커뮤니티 수가 2014년에 17개에서 16개로 감소한 것은 세종시 출범 이후 충청권 블록이 수도권 블록과 통합되는 과정에서 나타난 구조적 재편으로 해석된다. 또한 2018~2021년 Modularity가 상대적으로 낮아진 것(0.736~0.738)은 COVID-19 팬데믹 이전부터 진행된 수도권 교외화 및 세종시 성장으로 인해 기존 커뮤니티 경계가 약화되었음을 시사한다. 이는 국토 공간이 수도권으로의 블랙홀 현상과 비수도권 내부의 순환 이동이라는 이중 구조로 고착화되어 있으면서도, 세종시 중심의 새로운 광역 커뮤니티 재편이 진행 중임을 방증한다.
 
 ### 4.2.4 네트워크 집중도 변화
 
