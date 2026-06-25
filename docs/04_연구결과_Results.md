@@ -95,7 +95,7 @@ Figure 4-3은 5개 중심성 지표(PageRank, Betweenness, Closeness, In-Degree,
 
 네트워크 전체의 구조적 집중도 변화를 파악하기 위해 연도별 상위 10% 지역의 PageRank 점유율과 순이동 양극화 지수(Net Polarization)를 산출하였다. 분석 결과, 상위 허브로의 이동 집중은 지속적으로 심화되었다.
 
-네트워크 집중도(HHI 및 Top 10% 점유율)는 2008년 27.4%에서 2018년 28.2%까지 증가하였으며, 이후 소폭 등락을 거듭하다 2025년 27.0% 수준을 유지했다. 특히 주목할 점은 허브의 안정성(Hub Stability)이다. 2008년 상위 허브 지역들과 비교한 Jaccard 유사도 지수는 2010년 0.66에서 2018년 0.48, 2025년 0.42로 지속 하락하였다. 이는 기존 전통적 거점(예: 지방 광역시 중심구)들이 쇠퇴하고, 혁신도시 및 2기/3기 신도시를 품은 새로운 지역들이 새로운 허브로 부상하는 동태적 재편 과정이 활발히 일어났음을 시사한다.
+네트워크 집중도(HHI 및 Top 10% 점유율)는 2008년 28.5%에서 2018년 29.1%로 정점을 기록하였으며, 이후 소폭 등락을 거듭하다 2025년 27.9% 수준을 보였다. 특히 주목할 점은 허브의 안정성(Hub Stability)이다. 2008년 상위 허브 지역들과 비교한 Jaccard 유사도 지수는 2010년 0.60에서 2018년 0.43, 2025년 0.38로 지속 하락하였다. 이는 기존 전통적 거점(예: 지방 광역시 중심구)들이 쇠퇴하고, 혁신도시 및 2기/3기 신도시를 품은 새로운 지역들이 새로운 허브로 부상하는 동태적 재편 과정이 활발히 일어났음을 시사한다.
 
 ### 4.2.3 커뮤니티 구조 변화
 
@@ -148,15 +148,17 @@ Table 4-9는 전체 분석 기간의 연도별 커뮤니티 개수와 Modularity
 
 네트워크 전체의 구조적 집중도 변화를 파악하기 위해 Freeman Centralization 지수와 HHI를 연도별로 산출하였다. 분석 결과, 상위 허브로의 이동 집중은 2008년 이후 지속적으로 심화되는 추세를 보였다. 이는 허브 지역의 흡인력이 시간이 지날수록 더욱 강화되고 있음을 시사한다.
 
-![Figure 4-6. 시군구별 PageRank 중심성의 공간적 분포 (2024)](../results/figures/fig4_6_pagerank_choropleth.png)
+![Figure 4-6. Annual Change in Network Concentration (HHI)](../results/figures/fig4_6_hhi_trend.png)
 
-*Note: Choropleth map of PageRank centrality across 229 municipalities (2024). Darker shades indicate higher centrality. Top hub: 화성시 (PageRank=0.01900). Metropolitan regions (Seoul, Gyeonggi, Incheon) show extreme concentration of centrality.*
+*Note: Annual change in Herfindahl-Hirschman Index (HHI) based on PageRank distribution across 229 municipalities. The shaded area indicates the COVID-19 pandemic period (2020–2021).*
 
-(위 그림은 2024년 기준 시군구별 PageRank 중심성의 공간적 분포를 보여주며, 수도권 및 일부 거점 도시에 중심성이 극단적으로 편중되어 있음을 시각적으로 확인해준다.)
+![Figure 4-7. Annual Change in Freeman Centralization](../results/figures/fig4_7_freeman_trend.png)
+
+*Note: Annual change in Freeman Centralization Index based on degree centrality. The dashed line represents the linear trend.*
 
 ### 4.2.5 공간 자기상관 분석 (Global Moran's I)
 
-Table 4-10과 Figure 4-7은 2008~2025년 순이동률의 공간적 자기상관 추이를 보여준다. 분석 결과, 대한민국 시군구 인구이동은 대부분의 연도에서 통계적으로 유의한 양(+)의 공간적 자기상관을 가지는 것으로 나타났다. Moran's I는 −0.055~0.147 범위에서 변동하였으며, 이는 인구 유입 지역과 유출 지역이 각각 공간적으로 군집하는 현상이 존재함을 입증한다.
+Table 4-10과 Figure 4-8은 2008~2025년 순이동률의 공간적 자기상관 추이를 보여준다. 분석 결과, 대한민국 시군구 인구이동은 대부분의 연도에서 통계적으로 유의한 양(+)의 공간적 자기상관을 가지는 것으로 나타났다. Moran's I는 −0.055~0.147 범위에서 변동하였으며, 이는 인구 유입 지역과 유출 지역이 각각 공간적으로 군집하는 현상이 존재함을 입증한다.
 
 특히 주목할 점은 공간적 군집화의 강도가 시기별로 뚜렷한 차이를 보인다는 것이다. 2010~2012년(Moran's I: 0.124~0.147, p<0.01)과 2021년(0.124, p<0.01)에 가장 높은 수준의 공간적 자기상관이 관찰되었다. 2010년대 초반의 높은 수치는 2기 신도시 및 혁신도시 개발이 본격화되면서 특정 권역으로 인구 이동이 집중된 결과로 해석된다. 또한 2021년의 높은 수치는 COVID-19 팬데믹 기간 동안 인구이동 패턴이 공간적으로 더욱 집중되었음을 의미하며, 수도권 및 일부 거점도시 중심의 방어적 이동이 강화되었음을 시사한다.
 
@@ -187,27 +189,44 @@ Table 4-10과 Figure 4-7은 2008~2025년 순이동률의 공간적 자기상관 
 
 *Note: Moran's I statistics were estimated using row-standardized Queen contiguity weights based on direct intersection (n=229, avg. neighbors=5.19). True island regions (Jeju, Ulleung, etc.) connected via KNN(k=1). Statistical significance assessed using 999 Monte Carlo permutations. \* p<0.05, \*\* p<0.01, \*\*\* p<0.001.*
 
-![Figure 4-7. 연도별 Global Moran's I 변화 추이 (2008–2025)](../results/figures/fig4_7_morans_i_trend.png)
+![Figure 4-8. Moran Scatter Plot of Net Migration Rate](../results/figures/fig4_8_moran_scatter.png)
 
-*Note: The shaded area indicates the COVID-19 pandemic period (2020–2021). Filled markers indicate statistically significant values (p<0.05).*
+*Note: Moran Scatter Plot for 2011 (peak spatial autocorrelation) and 2021 (COVID-19 peak). The slope of the regression line represents Global Moran's I.*
 
 ### 4.2.6 국지적 공간 자기상관 분석 (LISA)
 
-전국 수준의 Global Moran's I가 공간적 군집화의 전반적 추세를 보여준다면, 국지적 공간 자기상관 분석(Local Indicators of Spatial Association, LISA)은 어떤 지역이 구체적으로 군집의 핵심을 형성하는지를 규명한다. Figure 4-8~4-10은 2009년, 2021년(팬데믹 정점), 2024년의 LISA 군집 지도를 비교하여 보여준다. 분석에는 `analysis_dataset_FINAL_v4.csv`의 실제 순이동률(net_rate)을 사용하였으며, Queen contiguity 공간 가중치(행 표준화)와 999회 Monte Carlo 순열 검정(p<0.05)을 적용하였다.
+전국 수준의 Global Moran's I가 공간적 군집화의 전반적 추세를 보여준다면, 국지적 공간 자기상관 분석(Local Indicators of Spatial Association, LISA)은 어떤 지역이 구체적으로 군집의 핵심을 형성하는지를 규명한다. Figure 4-9와 4-10은 분석의 시작과 끝인 2008년과 2025년의 LISA 군집 지도를 비교하여 보여준다. 분석에는 `analysis_dataset_FINAL_v4.csv`의 실제 순이동률(net_rate)을 사용하였으며, 올바르게 구축된 Queen contiguity 공간 가중치(n=229, 평균 이웃 5.19개)와 999회 Monte Carlo 순열 검정(p<0.05)을 적용하였다.
 
-**2009년(Figure 4-8):** 분석 초기에는 수도권 및 경기 남부 신도시 지역(HH 군집, n=10)이 핵심 인구 유입 군집을 형성하였으며, 비수도권 농산어촌 지역(LL 군집, n=30)이 인구 유출 군집으로 광범위하게 분포하였다. HL 군집(n=13)은 주변이 유출 지역인 가운데 독립적으로 유입을 기록하는 혁신도시·신도시 거점 지역으로 해석된다. 전체 유의 군집 지역은 60개(전체의 25.0%)이며, Global Moran's I=0.077(p=0.058)로 양(+)의 공간 자기상관 경향이 확인된다.
+**2008년(Figure 4-9):** 분석 초기에는 수도권 및 경기 남부 신도시 지역을 중심으로 HH 군집(n=9)이 뚜렷하게 형성되었으며, 강원권과 호남권 일부에 LL 군집(n=9)이 분포하였다. HL 군집(n=6)은 주변이 유출 지역인 가운데 독립적으로 유입을 기록하는 지역들이다. 전체 유의 군집 지역은 29개(전체의 12.7%)이며, Global Moran's I=0.1059(p<0.05)로 유의미한 양(+)의 공간 자기상관 경향이 확인된다.
 
-**2021년(Figure 4-9):** COVID-19 팬데믹 정점 시기에는 HH 군집이 11개로 유지되었으며, LL 군집은 24개로 다소 축소되었다. HL 군집(n=13)은 2009년과 동일한 수준을 유지하여 혁신도시·신도시 거점의 흡인력이 팬데믹 기간에도 지속되었음을 보여준다. Global Moran's I=0.065(p=0.074)로 비유의하나 양(+)의 방향성은 유지되었다. 전체 유의 군집 지역은 57개(23.5%)로 2009년과 유사한 수준이다.
+**2025년(Figure 4-10):** 분석 마지막 해에는 HH 군집이 4개로 크게 감소하고, LL 군집도 7개로 변화하였다. 전반적인 유의 군집 지역은 22개(9.6%)로 감소하여, 2025년 Global Moran's I의 비유의성(I=0.0568, p>0.05)과 일관된 결과를 보여준다. 이는 장기적으로 인구이동의 공간적 군집화 패턴이 점차 해체되고 보다 분산된 형태로 전환되고 있음을 시사한다. HL 군집(n=5)의 지속적 존재는 특정 거점 지역의 독립적 흡인력이 구조적으로 유지되고 있음을 의미한다.
 
-**2024년(Figure 4-10):** 팬데믹 이후 HH 군집은 5개로 감소하고, LL 군집도 23개로 변화하였다. 전반적인 유의 군집 지역은 43개(17.6%)로 감소하여, 2022년 이후 Global Moran's I의 비유의성(I=0.067, p=0.071)과 일관된 결과를 보여준다. 이는 팬데믹 이후 원격근무 확산 및 생활권 변화로 인해 인구이동 패턴이 보다 분산된 형태로 전환되고 있음을 시사한다. HL 군집(n=11)의 지속적 존재는 특정 거점 지역의 독립적 흡인력이 구조적으로 유지되고 있음을 의미한다.
+![Figure 4-9. LISA 군집 지도 (2008)](../results/figures/fig4_9_lisa_2008.png)
 
-![Figure 4-8. LISA 군집 지도 (2009)](../results/figures/fig4_8_lisa_2009.png)
-
-![Figure 4-9. LISA 군집 지도 (2021, COVID-19 정점)](../results/figures/fig4_9_lisa_2021.png)
-
-![Figure 4-10. LISA 군집 지도 (2024)](../results/figures/fig4_10_lisa_2024.png)
+![Figure 4-10. LISA 군집 지도 (2025)](../results/figures/fig4_10_lisa_2025.png)
 
 *Note: HH = High-High cluster (high net migration surrounded by high net migration); LL = Low-Low cluster; HL = High-Low outlier; LH = Low-High outlier. Significance level: p<0.05 based on 999 Monte Carlo permutations.*
+
+### 4.2.7 허브 안정성 추이
+
+![Figure 4-11. Hub Stability: Jaccard Similarity of Top-20 PageRank Hubs](../results/figures/fig4_11_jaccard_trend.png)
+
+*Note: Annual comparison of the top 20 PageRank hubs against the 2008 baseline. The Jaccard similarity index measures the proportion of shared hubs. The dashed line indicates a long-term downward trend.*
+
+**Table 4-11. 허브 안정성 지표 (2008년 상위 20개 허브 대비)**
+
+| Year | Jaccard Similarity | Shared Hubs | New Hubs | Lost Hubs | Top 1 Hub |
+|:---:|---:|---:|---:|---:|:---|
+| 2008 | 1.0000 | 20 | 0 | 0 | 수원시 |
+| 2010 | 0.6000 | 15 | 5 | 5 | 수원시 |
+| 2012 | 0.5385 | 14 | 6 | 6 | 수원시 |
+| 2014 | 0.5385 | 14 | 6 | 6 | 수원시 |
+| 2016 | 0.5385 | 14 | 6 | 6 | 수원시 |
+| 2018 | 0.4286 | 12 | 8 | 8 | 화성시 |
+| 2020 | 0.4815 | 13 | 7 | 7 | 용인시 |
+| 2022 | 0.4815 | 13 | 7 | 7 | 화성시 |
+| 2024 | 0.4286 | 12 | 8 | 8 | 화성시 |
+| 2025 | 0.3793 | 11 | 9 | 9 | 화성시 |
 
 ## 4.3 지역 흡인력의 결정요인: 공간 패널모형 (RQ2~RQ4)
 
