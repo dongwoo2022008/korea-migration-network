@@ -48,7 +48,7 @@
 
 네트워크 구조는 분석 기간 전반에 걸쳐 소수 허브 지역으로의 집중 패턴을 일관되게 유지하였다. 2008년에는 수도권 내 기성 도시(수원시, 송파구, 강남구)가 핵심 허브를 형성하였으나, 2016년 이후에는 화성시, 용인시 등 경기 남부 신도시 지역의 노드 크기가 급격히 확대되었다. 2020년 COVID-19 팬데믹 시기에는 전반적인 이동량 감소로 네트워크 밀도가 일시적으로 약화되었으나, 2025년에는 화성시·용인시·수원시를 중심으로 한 경기 남부 삼각 허브 구조가 더욱 공고해졌다.
 
-**4.2.2 네트워크 중심성 변화**
+### 4.2.2 네트워크 중심성 변화
 
 PageRank 중심성 기준 상위 20개 허브 지역의 변화를 살펴보면(Table 4-8), 수도권 신도시로의 인구 쏠림 현상이 뚜렷하게 관찰된다. 2008년에는 수원시(1위), 화성시(2위), 송파구(3위)가 핵심 허브를 형성하였으나, 2025년에는 화성시(1위), 용인시(2위), 수원시(3위)로 경기 남부권 거점 도시들의 지위가 더욱 공고해졌다. 반면, 2008년 상위권에 포진했던 서울 강남구(8위→11위), 강서구(10위→16위), 노원구(16위→탈락) 등 서울 주요 자치구들은 순위가 하락하거나 상위 20위 밖으로 밀려났다. 이는 주거비 부담과 신도시 개발로 인해 서울에서 경기권으로 인구가 이동하는 교외화(Suburbanization) 현상이 네트워크 구조에 그대로 투영된 결과이다.
 
@@ -91,13 +91,21 @@ Figure 4-3은 5개 중심성 지표(PageRank, Betweenness, Closeness, In-Degree,
 
 *Note: Boxplots show the distribution of each centrality metric across 229 municipalities per year. Dots represent outliers (values beyond 1.5×IQR).*
 
-### 4.2.2 네트워크 집중도 및 양극화 심화
+### 4.2.3 네트워크 집중도 및 허브 안정성
 
-네트워크 전체의 구조적 집중도 변화를 파악하기 위해 연도별 상위 10% 지역의 PageRank 점유율과 순이동 양극화 지수(Net Polarization)를 산출하였다. 분석 결과, 상위 허브로의 이동 집중은 지속적으로 심화되었다.
+네트워크 전체의 구조적 집중도 변화를 파악하기 위해 Freeman Centralization 지수와 HHI를 연도별로 산출하였다. 분석 결과, 상위 허브로의 이동 집중은 2008년 이후 지속적으로 심화되는 추세를 보였다. HHI는 2008년 28.5%에서 2018년 29.1%로 정점을 기록하였으며, 이후 소폭 등락을 거듭하다 2025년 27.9% 수준을 보였다. 이는 허브 지역의 흡인력이 시간이 지날수록 더욱 강화되고 있음을 시사한다.
 
-네트워크 집중도(HHI 및 Top 10% 점유율)는 2008년 28.5%에서 2018년 29.1%로 정점을 기록하였으며, 이후 소폭 등락을 거듭하다 2025년 27.9% 수준을 보였다. 특히 주목할 점은 허브의 안정성(Hub Stability)이다. 2008년 상위 허브 지역들과 비교한 Jaccard 유사도 지수는 2010년 0.60에서 2018년 0.43, 2025년 0.38로 지속 하락하였다. 이는 기존 전통적 거점(예: 지방 광역시 중심구)들이 쇠퇴하고, 혁신도시 및 2기/3기 신도시를 품은 새로운 지역들이 새로운 허브로 부상하는 동태적 재편 과정이 활발히 일어났음을 시사한다.
+![Figure 4-6. Annual Change in Network Concentration (HHI)](../results/figures/fig4_6_hhi_trend.png)
 
-### 4.2.3 커뮤니티 구조 변화
+*Note: Annual change in Herfindahl-Hirschman Index (HHI) based on PageRank distribution across 229 municipalities. The shaded area indicates the COVID-19 pandemic period (2020–2021).*
+
+![Figure 4-7. Annual Change in Freeman Centralization](../results/figures/fig4_7_freeman_trend.png)
+
+*Note: Annual change in Freeman Centralization Index based on degree centrality. The dashed line represents the linear trend.*
+
+특히 주목할 점은 허브의 안정성(Hub Stability)이다. 2008년 상위 허브 지역들과 비교한 Jaccard 유사도 지수는 2010년 0.60에서 2018년 0.43, 2025년 0.38로 지속 하락하였다. 이는 기존 전통적 거점(예: 지방 광역시 중심구)들이 쇠퇴하고, 혁신도시 및 2기/3기 신도시를 품은 새로운 지역들이 새로운 허브로 부상하는 동태적 재편 과정이 활발히 일어났음을 시사한다.
+
+### 4.2.4 커뮤니티 구조 변화
 
 Louvain 알고리즘을 시군구 간 인구이동 OD(Origin-Destination) 행렬에 적용하여 2006~2025년 인구이동 네트워크의 커뮤니티 구조 변화를 분석하였다. 분석에는 자기루프(동일 시군구 내 이동)를 제거한 순수 시군구 간 이동 흐름을 엣지 가중치로 사용한 무방향 가중 네트워크(n=229)를 구성하였으며, Louvain 알고리즘(python-louvain v0.16, random_state=42)을 적용하였다. Figure 4-4와 Figure 4-5는 각각 2008년과 2025년의 커뮤니티 탐지 결과를 시군구 행정구역 경계 위에 표현한 것이다.
 
@@ -107,11 +115,11 @@ Louvain 알고리즘을 시군구 간 인구이동 OD(Origin-Destination) 행렬
 
 ![Figure 4-5. Louvain Community Detection Map (2025)](../results/figures/fig4_5_louvain_2025.png)
 
-*Note: Same methodology as Figure 4-4. Modularity = 0.442. Comparison with 2008 reveals structural consolidation: community count maintained at 6, while isolated nodes decreased from 46 to 12, reflecting the broadening of migration catchment areas.*
+*Note: Same methodology as Figure 4-4. Modularity = 0.442. Community count maintained at 6. Isolated node count decreased from 46 (2008) to 12 (2025); however, this reduction partly reflects improved code coverage across years rather than solely actual network connectivity gains.*
 
 분석 결과, 2008년에는 6개의 실질 커뮤니티(Modularity=0.498)가 탐지되었으며, 46개 시군구는 고립 노드(isolated nodes)로 나타났다. 실질 커뮤니티는 수도권·경기권 블록, 충청·세종권 블록, 호남권 블록, 영남권 블록, 강원권 블록, 제주·도서권 블록의 6대 광역 권역 구조를 형성하였다. 이는 한국의 인구이동이 수도권 집중이라는 단일 구조가 아니라, 광역 권역 단위의 순환 이동과 권역 간 장거리 이동이 공존하는 다층적 커뮤니티 구조를 형성하고 있음을 보여준다.
 
-2025년에는 커뮤니티 수가 6개(Modularity=0.442)를 유지하였으나, 고립 노드가 12개로 크게 감소하였다. 이는 인구이동 네트워크의 연결성이 전반적으로 강화되면서 기존에 이동 흐름이 미약했던 소규모 시군구들도 네트워크에 편입되는 구조적 통합이 진행되고 있음을 의미한다. 특히 2023~2025년에 고립 노드가 24→12개로 급감한 것은 수도권 광역화 및 교통 인프라 확충에 따른 이동 권역의 확장과 일관된 결과이다.
+2025년에는 커뮤니티 수가 6개(Modularity=0.442)를 유지하였으나, 고립 노드가 12개로 크게 감소하였다. 다만 이 고립 노드 수치의 변화는 실제 인구이동 네트워크의 연결성 강화만을 반영하는 것이 아닐 수 있다. 본 분석에 사용된 OD 데이터는 연도에 따라 일반구 코드 또는 구 행정코드가 혼재하여 코드 미스매치가 발생하며, 초기 연도(2006~2022)의 고립 노드 다수는 이러한 데이터 커버리지 한계에서 비롯된 인공산물(artifact)일 가능성을 배제할 수 없다. 따라서 고립 노드 감소 추세는 실질적 이동 권역 확장의 방향성을 시사하는 참고 지표로 해석하되, 그 절대적 수치에 대한 해석에는 주의가 필요하다.
 
 Table 4-9는 전체 분석 기간의 연도별 커뮤니티 개수와 Modularity 지수를 정리한 것이다. Modularity는 2006~2009년 0.497~0.503 수준에서 점진적으로 하락하여 2025년에는 0.442까지 감소하였다. 이러한 Modularity의 장기적 하락 추세는 시군구 간 인구이동 네트워크의 커뮤니티 경계가 점차 약화되고 있음을 의미하며, 이는 교통 인프라 확충, 수도권 광역화, 세종시 등 신도시 성장에 따른 이동 권역의 광역화와 일관된 결과이다.
 
@@ -143,18 +151,6 @@ Table 4-9는 전체 분석 기간의 연도별 커뮤니티 개수와 Modularity
 *Note: Community detection performed using the Louvain algorithm (python-louvain v0.16, random_state=42) applied to the undirected inter-municipal OD migration network with self-loops removed. Edge weight = total inter-municipal migration flow (all ages, both sexes). Real Communities = communities with ≥3 nodes. Isolated Nodes = nodes with no inter-municipal connections. Modularity computed using the standard Newman-Girvan formula.*
 
 커뮤니티 수가 2006~2025년 동안 6개(2015년 예외적으로 7개)로 안정적으로 유지된 것은 대한민국 인구이동 네트워크가 광역 권역 단위의 강한 구조적 일관성을 가지고 있음을 시사한다. 반면 Modularity의 장기적 하락(0.503→0.442)은 권역 간 이동이 점차 증가하면서 커뮤니티 경계가 약화되는 추세를 반영한다. 특히 2021~2022년 Modularity가 상대적으로 낮아진 것(0.460~0.468)은 팬데믹 이전부터 진행된 수도권 교외화 및 세종시 성장으로 인해 기존 커뮤니티 경계가 약화되었음을 시사한다. 이는 국토 공간이 수도권으로의 집중과 비수도권 내부의 순환 이동이라는 이중 구조를 유지하면서도, 세종시 중심의 새로운 광역 커뮤니티 재편이 진행 중임을 방증한다.
-
-### 4.2.4 네트워크 집중도 변화
-
-네트워크 전체의 구조적 집중도 변화를 파악하기 위해 Freeman Centralization 지수와 HHI를 연도별로 산출하였다. 분석 결과, 상위 허브로의 이동 집중은 2008년 이후 지속적으로 심화되는 추세를 보였다. 이는 허브 지역의 흡인력이 시간이 지날수록 더욱 강화되고 있음을 시사한다.
-
-![Figure 4-6. Annual Change in Network Concentration (HHI)](../results/figures/fig4_6_hhi_trend.png)
-
-*Note: Annual change in Herfindahl-Hirschman Index (HHI) based on PageRank distribution across 229 municipalities. The shaded area indicates the COVID-19 pandemic period (2020–2021).*
-
-![Figure 4-7. Annual Change in Freeman Centralization](../results/figures/fig4_7_freeman_trend.png)
-
-*Note: Annual change in Freeman Centralization Index based on degree centrality. The dashed line represents the linear trend.*
 
 ### 4.2.5 공간 자기상관 분석 (Global Moran's I)
 
@@ -207,11 +203,11 @@ Table 4-10과 Figure 4-8은 2008~2025년 순이동률의 공간적 자기상관 
 
 *Note: HH = High-High cluster (high net migration surrounded by high net migration); LL = Low-Low cluster; HL = High-Low outlier; LH = Low-High outlier. Significance level: p<0.05 based on 999 Monte Carlo permutations.*
 
-### 4.2.7 허브 안정성 추이
+Figure 4-11과 Table 4-11은 2008년 기준 상위 20개 허브 지역과의 연도별 Jaccard 유사도를 통해 허브 구성의 동태적 변화를 보여준다.
 
 ![Figure 4-11. Hub Stability: Jaccard Similarity of Top-20 PageRank Hubs](../results/figures/fig4_11_jaccard_trend.png)
 
-*Note: Annual comparison of the top 20 PageRank hubs against the 2008 baseline. The Jaccard similarity index measures the proportion of shared hubs. The dashed line indicates a long-term downward trend.*
+*Note: Annual comparison of the top 20 PageRank hubs against the 2008 baseline. The Jaccard similarity index measures the proportion of shared hubs. The dashed line indicates a long-term downward trend (slope = −0.0163/yr).*
 
 **Table 4-11. 허브 안정성 지표 (2008년 상위 20개 허브 대비)**
 
