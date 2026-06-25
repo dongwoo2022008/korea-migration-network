@@ -38,28 +38,58 @@
 
 ## 4.2 인구이동 네트워크의 구조적 진화 (RQ1)
 
-### 4.2.1 네트워크 중심성 및 허브의 변화
+### 4.2.1 전국 인구이동 네트워크 구조
 
-2008년부터 2025년까지 대한민국 229개 시군구 간 인구이동 네트워크의 구조적 진화를 분석하였다. PageRank 중심성 기준 상위 20개 허브 지역의 변화를 살펴보면(Table 4-8), 수도권 신도시로의 인구 쏠림 현상이 뚜렷하게 관찰된다.
+2008년부터 2025년까지 대한민국 229개 시군구 간 인구이동 네트워크의 구조적 진화를 분석하였다. Figure 4-1은 5개 대표 연도(2008, 2012, 2016, 2020, 2025)의 인구이동 네트워크를 시각화한 것으로, 노드 크기는 PageRank 중심성에 비례하며 진회색은 수도권 지역, 연회색은 비수도권 지역을 나타낸다.
 
-2008년에는 수원시(1위), 화성시(2위), 송파구(3위)가 핵심 허브를 형성하였으나, 2025년에는 화성시(1위), 용인시(2위), 수원시(3위)로 경기 남부권 거점 도시들의 지위가 더욱 공고해졌다. 반면, 2008년 상위권에 포진했던 서울 강남구(8위→11위), 강서구(10위→16위), 노원구(16위→탈락) 등 서울 주요 자치구들은 순위가 하락하거나 상위 20위 밖으로 밀려났다. 이는 주거비 부담과 신도시 개발로 인해 서울에서 경기권으로 인구가 이동하는 '교외화(Suburbanization)' 현상이 네트워크 구조에 그대로 투영된 결과이다.
+![Figure 4-1. 연도별 인구이동 네트워크 구조 (2008, 2012, 2016, 2020, 2025)](../results/figures/fig4_1_network_structure.png)
+
+*Note: Node size is proportional to PageRank centrality. Dark nodes = metropolitan regions; light nodes = non-metropolitan regions. Edges represent directional migration flows to the top hub.*
+
+네트워크 구조는 분석 기간 전반에 걸쳐 소수 허브 지역으로의 집중 패턴을 일관되게 유지하였다. 2008년에는 수도권 내 기성 도시(수원시, 송파구, 강남구)가 핵심 허브를 형성하였으나, 2016년 이후에는 화성시, 용인시 등 경기 남부 신도시 지역의 노드 크기가 급격히 확대되었다. 2020년 COVID-19 팬데믹 시기에는 전반적인 이동량 감소로 네트워크 밀도가 일시적으로 약화되었으나, 2025년에는 화성시·용인시·수원시를 중심으로 한 경기 남부 삼각 허브 구조가 더욱 공고해졌다.
+
+**4.2.2 네트워크 중심성 변화**
+
+PageRank 중심성 기준 상위 20개 허브 지역의 변화를 살펴보면(Table 4-8), 수도권 신도시로의 인구 쏠림 현상이 뚜렷하게 관찰된다. 2008년에는 수원시(1위), 화성시(2위), 송파구(3위)가 핵심 허브를 형성하였으나, 2025년에는 화성시(1위), 용인시(2위), 수원시(3위)로 경기 남부권 거점 도시들의 지위가 더욱 공고해졌다. 반면, 2008년 상위권에 포진했던 서울 강남구(8위→11위), 강서구(10위→16위), 노원구(16위→탈락) 등 서울 주요 자치구들은 순위가 하락하거나 상위 20위 밖으로 밀려났다. 이는 주거비 부담과 신도시 개발로 인해 서울에서 경기권으로 인구가 이동하는 교외화(Suburbanization) 현상이 네트워크 구조에 그대로 투영된 결과이다.
 
 **Table 4-8. 연도별 인구이동 네트워크 Top 20 허브 지역 (PageRank 기준)**
 
-| 순위 | 2008년 (Rank 2008) | PageRank | 2025년 (Rank 2025) | PageRank |
-|:---:|:---|---:|:---|---:|
-| 1 | 경기도 수원시 | 0.0188 | 경기도 화성시 | 0.0182 |
-| 2 | 경기도 화성시 | 0.0178 | 경기도 용인시 | 0.0180 |
-| 3 | 서울특별시 송파구 | 0.0165 | 경기도 수원시 | 0.0179 |
-| 4 | 경기도 용인시 | 0.0158 | 경기도 고양시 | 0.0138 |
-| 5 | 경기도 고양시 | 0.0153 | 인천광역시 서구 | 0.0133 |
-| 6 | 경기도 성남시 | 0.0138 | 서울특별시 관악구 | 0.0132 |
-| 7 | 경기도 부천시 | 0.0133 | 경기도 성남시 | 0.0132 |
-| 8 | 서울특별시 강남구 | 0.0126 | 경기도 평택시 | 0.0126 |
-| 9 | 서울특별시 관악구 | 0.0124 | 서울특별시 송파구 | 0.0124 |
-| 10 | 서울특별시 강서구 | 0.0118 | 충청남도 천안시 | 0.0119 |
+| Rank | 2008 Region | PageRank | 2015 Region | PageRank | 2025 Region | PageRank |
+|:---:|:---|---:|:---|---:|:---|---:|
+| 1 | 수원시 (Gyeonggi) | 0.0189 | 수원시 (Gyeonggi) | 0.0194 | 화성시 (Gyeonggi) | 0.0183 |
+| 2 | 화성시 (Gyeonggi) | 0.0179 | 용인시 (Gyeonggi) | 0.0178 | 용인시 (Gyeonggi) | 0.0181 |
+| 3 | 송파구 (Seoul) | 0.0166 | 화성시 (Gyeonggi) | 0.0169 | 수원시 (Gyeonggi) | 0.0180 |
+| 4 | 용인시 (Gyeonggi) | 0.0159 | 고양시 (Gyeonggi) | 0.0165 | 고양시 (Gyeonggi) | 0.0138 |
+| 5 | 고양시 (Gyeonggi) | 0.0153 | 성남시 (Gyeonggi) | 0.0146 | 서구 (Incheon) | 0.0133 |
+| 6 | 성남시 (Gyeonggi) | 0.0139 | 세종시 (Sejong) | 0.0133 | 관악구 (Seoul) | 0.0133 |
+| 7 | 부천시 (Gyeonggi) | 0.0134 | 강남구 (Seoul) | 0.0121 | 성남시 (Gyeonggi) | 0.0132 |
+| 8 | 강남구 (Seoul) | 0.0126 | 관악구 (Seoul) | 0.0114 | 평택시 (Gyeonggi) | 0.0127 |
+| 9 | 관악구 (Seoul) | 0.0124 | 청주시 (Chungbuk) | 0.0113 | 송파구 (Seoul) | 0.0124 |
+| 10 | 강서구 (Seoul) | 0.0119 | 청주시 (Chungbuk) | 0.0110 | 천안시 (Chungnam) | 0.0119 |
+| 11 | 남동구 (Incheon) | 0.0117 | 남양주시 (Gyeonggi) | 0.0110 | 강남구 (Seoul) | 0.0119 |
+| 12 | 창원시 (Gyeongnam) | 0.0115 | 남동구 (Incheon) | 0.0108 | 강동구 (Seoul) | 0.0119 |
+| 13 | 안산시 (Gyeonggi) | 0.0115 | 송파구 (Seoul) | 0.0105 | 청주시 (Chungbuk) | 0.0118 |
+| 14 | 천안시 (Chungnam) | 0.0107 | 부천시 (Gyeonggi) | 0.0104 | 서구 (Daejeon) | 0.0117 |
+| 15 | 부평구 (Incheon) | 0.0106 | 전주시 (Jeonbuk) | 0.0102 | 세종시 (Sejong) | 0.0113 |
+| 16 | 노원구 (Seoul) | 0.0103 | 천안시 (Chungnam) | 0.0102 | 강서구 (Seoul) | 0.0098 |
+| 17 | 북구 (Daegu) | 0.0102 | 강서구 (Seoul) | 0.0101 | 안양시 (Gyeonggi) | 0.0098 |
+| 18 | 달서구 (Daegu) | 0.0102 | 유성구 (Daejeon) | 0.0097 | 남양주시 (Gyeonggi) | 0.0095 |
+| 19 | 전주시 (Jeonbuk) | 0.0102 | 서구 (Daejeon) | 0.0097 | 동대문구 (Seoul) | 0.0095 |
+| 20 | 남양주시 (Gyeonggi) | 0.0101 | 달서구 (Daegu) | 0.0096 | 유성구 (Daejeon) | 0.0095 |
 
-(상위 10개 지역 발췌, 상세 20위 목록은 GitHub 저장소 `results/tables/top20_hub_comparison_2008_2025.csv` 참조)
+*Note: PageRank values are normalized. Regions with identical names are distinguished by province in parentheses.*
+
+Figure 4-2는 평균 PageRank 기준 상위 8개 허브 지역의 2008~2025년 중심성 추세를 보여준다. 수원시는 분석 기간 내내 최상위 허브 지위를 유지하였으나, 화성시와 용인시의 PageRank가 2010년대 중반 이후 급격히 상승하여 2020년대에는 수원시와 대등한 수준에 도달하였다. 세종시는 2012년 출범 이후 빠른 속도로 허브 지위를 확보하여 2015년 상위 20위권에 진입하였다. COVID-19 팬데믹(2020~2021) 기간에는 수원시의 PageRank가 일시적으로 하락하였으나, 2022년 이후 빠르게 회복되었다.
+
+![Figure 4-2. PageRank 상위 허브 지역의 중심성 변화 추세 (2008–2025)](../results/figures/fig4_2_pagerank_trends.png)
+
+*Note: Shaded area indicates the COVID-19 pandemic period (2020–2021). Lines represent the 8 regions with highest average PageRank over the study period.*
+
+Figure 4-3은 5개 중심성 지표(PageRank, Betweenness, Closeness, In-Degree, Out-Degree)의 연도별 분포 변화를 Boxplot으로 나타낸 것이다. PageRank의 분포는 분석 기간 전반에 걸쳐 우편포(right-skewed) 형태를 유지하며, 상위 이상치(outlier)의 값이 점차 확대되는 경향을 보인다. 이는 소수 허브 지역의 중심성이 시간이 지날수록 더욱 강화되는 네트워크의 집중화 경향을 반영한다. Closeness 중심성은 2008년 이후 전반적으로 하락하는 추세를 보이는데, 이는 네트워크 내 지역 간 연결 경로가 길어지는 구조적 분절화 현상과 관련된다.
+
+![Figure 4-3. 네트워크 중심성 지표의 연도별 분포 변화 (2008–2025)](../results/figures/fig4_3_centrality_boxplot.png)
+
+*Note: Boxplots show the distribution of each centrality metric across 229 municipalities per year. Dots represent outliers (values beyond 1.5×IQR).*
 
 ### 4.2.2 네트워크 집중도 및 양극화 심화
 
