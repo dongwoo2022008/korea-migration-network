@@ -1,7 +1,16 @@
 {
-  "Econ": 0.0965,
-  "Demo": 0.114,
-  "Infra": 0.1106,
-  "Serv": 0.1346,
-  "Net": 0.5444
+  "domain_weights": {
+    "Econ": 0.1875,
+    "Demo": 0.1771,
+    "Infra": 0.2901,
+    "Serv": 0.3453
+  },
+  "domain_mean_shap": {
+    "Econ": 0.7931,
+    "Demo": 0.7488,
+    "Infra": 1.227,
+    "Serv": 1.4602
+  },
+  "best_model": "CatBoost",
+  "note": "pagerank_lag1 excluded from RAI (network centrality as anchor in FE/SDM)"
 }
