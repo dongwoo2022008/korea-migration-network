@@ -58,6 +58,11 @@ korea-migration-network/
 │   ├── analysis_dataset_FINAL_v4.csv   # 최종 분석 데이터 (메인)
 │   └── 분석데이터셋_최종_v2.xlsx         # 엑셀 버전 (메타데이터 포함)
 ├── docs/                          # 연구 문서
+│   ├── 01_서론_Introduction.md          # 서론
+│   ├── 02_선행연구_Literature.md         # 선행연구 검토
+│   ├── 03_방법론_Methodology.md          # 연구설계 및 분석방법
+│   ├── 04_연구결과_Results.md            # 분석결과 및 해석
+│   ├── 05_결론_Conclusion.md             # 결론 및 정책적 시사점
 │   ├── 단계별_분석계획서.md              # 분석 실행 계획서
 │   ├── 분석방법론_수정안_초안.md          # 방법론 설계 문서
 │   └── 변수_수치_및_출처_검증보고서.md    # 변수 검증 보고서
