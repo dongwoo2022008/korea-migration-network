@@ -1,0 +1,38 @@
+{
+  "best_model": "CatBoost",
+  "test_r2": 0.2927070325855655,
+  "test_rmse": 12.109758260282032,
+  "test_mae": 8.572001419225689,
+  "shap_top5": [
+    {
+      "feature": "childcare_pk",
+      "mean_abs_shap": 2.6640985991781077
+    },
+    {
+      "feature": "house_age",
+      "mean_abs_shap": 2.184262796838579
+    },
+    {
+      "feature": "closeness",
+      "mean_abs_shap": 2.002248210069772
+    },
+    {
+      "feature": "senior_fac_pk",
+      "mean_abs_shap": 1.8201607629623726
+    },
+    {
+      "feature": "sewer_supply",
+      "mean_abs_shap": 1.6533164291032252
+    }
+  ],
+  "pagerank_lag1_rank": 8,
+  "pagerank_lag1_shap": 1.2151470538324147,
+  "rai_domain_weights": {
+    "Econ": 0.1863,
+    "Demo": 0.1791,
+    "Infra": 0.2704,
+    "Serv": 0.3642
+  },
+  "rai_net_rate_corr": -0.0871,
+  "leakage_gate_passed": true
+}

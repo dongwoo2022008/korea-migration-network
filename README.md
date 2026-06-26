@@ -18,7 +18,7 @@
 | RQ2 | 네트워크 위치(PageRank)는 지역 흡인력에 영향을 미치는가? | Two-way FE (패널 고정효과 모형) |
 | RQ3 | 지역 간 인구이동에 공간 파급효과(Spatial Spillover)가 존재하는가? | SDM (공간더빈모형) 직·간접 효과 분해 |
 | RQ4 | 연령대별 인구이동 네트워크는 구조적 이질성을 가지는가? | 연령집단별 네트워크 비교 분석 |
-| RQ5 | 지역 흡인력 결정요인의 비선형적 구조는 무엇인가? | ML(CatBoost) + SHAP 분석 |
+| RQ5 | 지역 흡인력 결정요인의 비선형적 구조는 무엇인가? | ML(CatBoost, Test R²=0.293) + SHAP 분석 (1위: 보육시설) |
 | RQ6 | 지역 흡인력 결정요인은 시간에 따라 변화하는가? | 기간분할 FE, 연도별 횡단면 OLS |
 
 ---
@@ -93,7 +93,7 @@ korea-migration-network/
 - [x] Step 3: 네트워크 분석 (Track A)
 - [x] Step 4: 공간 가중치 행렬 구성 및 LM 검정
 - [x] Step 5: 공간 패널계량모형 (Track B)
-- [x] Step 6: ML + SHAP (Track C, Time-series split 적용)
+- [x] Step 6: ML + SHAP (Track C, Time-series split 적용, 누수 제거 pagerank_lag1 기준)
 - [x] Step 7: RAI 지수 산출
 - [x] Step 8: 논문 초안 작성 완료
 
