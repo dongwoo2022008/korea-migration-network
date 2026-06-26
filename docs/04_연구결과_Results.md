@@ -109,25 +109,23 @@ Figure 4-3은 5개 중심성 지표(PageRank, Betweenness, Closeness, In-Degree,
 
 인구이동 네트워크의 거시적 진화 과정을 파악하기 위해 밀도, 상호성, 평균 최단 경로 길이(APL), 군집 계수 등 구조적 동학 지표를 산출하였다(Figure 4-20). 
 
-![Figure 4-20. Network Dynamics of Inter-Municipal Migration (2006–2025)](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_20_network_dynamics.png)
+![Figure 4-4. Network Dynamics of Inter-Municipal Migration (2006–2025)](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_20_network_dynamics.png)
 
 *Note: (a) Density and Reciprocity, (b) Average Path Length (APL) and Average Clustering Coefficient, (c) Community Modularity based on Louvain algorithm, (d) Hub Stability measured by Kendall's $\tau$ and Jaccard similarity comparing Top 20 PageRank hubs of each year against the 2008 baseline. Shaded area indicates the COVID-19 pandemic period (2020–2021).*
 
-분석 결과, 네트워크 밀도(Density)는 2009년 0.798을 정점으로 점진적으로 하락하여 2023년 0.766까지 감소하였으나, 상호성(Reciprocity)은 분석 기간 내내 0.89~0.92의 매우 높은 수준을 유지하였다(Figure 4-20a). 이는 시군구 간 인구이동이 일방향적 쏠림보다는 양방향 교환(교차 이동)의 성격이 강함을 의미한다. 
-
-평균 최단 경로 길이(APL)는 1.02~1.04 수준으로 극히 짧고, 평균 군집 계수(Avg CC)는 0.96~0.98로 매우 높아, 전형적인 '소규모 세상(Small-world)' 특성을 보였다(Figure 4-20b). 특히 COVID-19 팬데믹 직후인 2022~2023년에 APL이 상승하고 군집 계수가 하락하는 양상이 나타났는데, 이는 팬데믹 기간 동안 근거리 중심의 이동이 일시적으로 증가했음을 시사한다.
+분석 결과, 네트워크 밀도(Density)는 2009년 0.798을 정점으로 2023년 0.766까지 점진적으로 하락하였으나, 상호성(Reciprocity)은 분석 기간 내내 0.89~0.92의 매우 높은 수준을 유지하였다(Figure 4-4a). 평균 최단 경로 길이(APL)는 1.02~1.04, 평균 군집 계수(Avg CC)는 0.96~0.98로 이미 포화 상태의 '소규모 세상(Small-world)' 특성을 보여 거시적 연결망 자체의 변화는 미미하였다(Figure 4-4b). 즉, 대한민국 인구이동 네트워크는 전반적인 밀도나 연결 거리 측면에서는 안정화되어 있으나, 내부적인 거점 교체와 집중도 측면에서 구조적 재편이 발생하고 있음을 알 수 있다.
 
 네트워크 집중도 측면에서, PageRank 기준 상위 허브로의 집중은 지속적으로 심화되었다. PageRank HHI는 2008년 28.5%에서 2018년 29.1%로 정점을 기록하였으며, Freeman Centralization 지수 역시 꾸준한 상승 추세를 보였다. 
 
-![Figure 4-4. Annual Change in Network Concentration (HHI)](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_04_hhi_concentration_trend.png)
+![Figure 4-5. Annual Change in Network Concentration (HHI)](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_04_hhi_concentration_trend.png)
 
 *Note: Annual change in Herfindahl-Hirschman Index (HHI) based on PageRank distribution across 229 municipalities. The shaded area indicates the COVID-19 pandemic period (2020–2021).*
 
-![Figure 4-5. Annual Change in Freeman Centralization](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_05_freeman_centralization_trend.png)
+![Figure 4-6. Annual Change in Freeman Centralization](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_05_freeman_centralization_trend.png)
 
 *Note: Annual change in Freeman Centralization Index based on degree centrality. The dashed line represents the linear trend.*
 
-특히 주목할 점은 허브의 안정성(Hub Stability)이다. Figure 4-20(d)에서 보듯, 2008년 상위 20개 허브를 기준으로 한 연도별 Kendall의 $\tau$ 순위상관계수와 Jaccard 유사도는 지속적으로 하락하였다. Jaccard 유사도는 2008년 1.0에서 2025년 0.429로 떨어졌는데, 이는 2008년 핵심 허브의 절반 이상이 2025년에는 상위 20위 밖으로 밀려났음을 의미한다. 기존 전통적 거점(예: 지방 광역시 중심구)들이 쇠퇴하고, 혁신도시 및 2기/3기 신도시를 품은 새로운 지역들이 허브로 부상하는 동태적 재편 과정이 활발히 일어났음을 입증한다.
+특히 주목할 점은 허브의 교체(Hub Replacement)와 안정성(Hub Stability) 저하이다. Figure 4-4(d)에서 보듯, 2008년 상위 20개 허브를 기준으로 한 연도별 Kendall의 $\tau$ 순위상관계수와 Jaccard 유사도는 지속적으로 하락하였다. Jaccard 유사도는 2008년 1.0에서 2025년 0.379로 떨어졌는데, 이는 2008년 핵심 허브의 절반 이상이 2025년에는 상위 20위 밖으로 밀려났음을 의미한다. 기존 전통적 거점(예: 지방 광역시 중심구)들이 쇠퇴하고, 신도시를 품은 새로운 지역들이 허브로 부상하는 동태적 재편 과정이 활발히 일어났음을 입증한다. 상세한 허브 교체 내역은 §4.2.5(Table 4-5)에서 다룬다.
 
 ### 4.2.4 커뮤니티 구조 변화
 
