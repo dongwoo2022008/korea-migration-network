@@ -301,11 +301,11 @@ $$y_{it} = \rho \sum_{j=1}^{N} W_{ij} y_{jt} + \beta_1 PageRank_{i,t-1} + \sum_{
 
 SHAP 분석 결과를 바탕으로 각 지역의 **지역 흡인력 지수(Regional Attractiveness Index, RAI)**를 산출한다. 단순 예측값과의 차별성을 확보하고 지수 구성의 이론적 타당성을 높이기 위해, SHAP 값을 4개 영역으로 묶어 하위 지수(Sub-index)화한 후 Z-score로 표준화하여 종합 지수(Total RAI)를 도출한다.
 
-$$RAI_i^{Total} = Z\left(\frac{1}{N_{Econ}}\sum_{j \in Econ} SHAP_{ji}\right) + Z\left(\frac{1}{N_{Demo}}\sum_{j \in Demo} SHAP_{ji}\right) + Z\left(\frac{1}{N_{Infra}}\sum_{j \in Infra} SHAP_{ji}\right) + Z\left(\frac{1}{N_{Serv}}\sum_{j \in Serv} SHAP_{ji}\right)$$
+$$RAI_i^{Total} = w_{Econ}\,Z(S_{Econ,i}) + w_{Demo}\,Z(S_{Demo,i}) + w_{Infra}\,Z(S_{Infra,i}) + w_{Serv}\,Z(S_{Serv,i})$$
 
-여기서 각 영역의 변수 수($N$)가 다름에 따라 발생할 수 있는 과대반영 편향을 방지하기 위해, 영역별 SHAP 합산값이 아닌 평균값을 산출한 후 Z-score 표준화를 적용하였다.
+여기서 $S_{d,i} = \dfrac{1}{N_d}\sum_{j \in d} SHAP_{ji}$는 지역 $i$의 영역 $d$ 평균 SHAP 기여이며, $Z(\cdot)$는 Z-score 표준화 함수, $w_d$는 영역 가중치이다. 영역 내 변수 수($N_d$)가 다름에 따라 발생할 수 있는 과대반영 편향을 방지하기 위해, 영역별 SHAP **합산값이 아닌 평균값**($S_{d,i}$)을 산출한 후 Z-score 표준화를 적용하였다(영역 내 처리). 이후 영역 간 결합 시에는 **SHAP 비중 가중합**을 적용하여 예측력이 높은 영역에 더 큰 비중을 부여하였다(영역 간 처리).
 
-여기서 $Z(\cdot)$는 Z-score 표준화 함수이며, $Econ$, $Demo$, $Infra$, $Serv$는 각각 경제, 인구, 인프라, 서비스 영역의 변수 집합을 나타낸다.
+영역 가중치 $w_d$는 §4.6 LightGBM SHAP 분석에서 산출된 **영역별 평균 |SHAP| 기여 비중**을 적용하였다($w_{Econ}=0.185$, $w_{Demo}=0.224$, $w_{Infra}=0.361$, $w_{Serv}=0.230$; 합=1.0). 이는 예측력이 높은 영역에 더 큰 비중을 부여하여 지수의 설명력을 제고하기 위함이며, §4.8 Table 4-20 Note의 가중치 표기와 동일하다.
 
 4개 영역의 변수 배정은 선행연구의 이론적 분류 체계와 변수의 실질적 성격을 기준으로 하였다. **특히 보육시설(childcare\_pk)은 일반적으로 복지(Welfare) 또는 생활서비스(SOC) 영역으로 분류되나, 본 연구에서는 주민 생활서비스 접근성의 질적 측면을 담당하는 변수로 판단하여 Serv(Service) 영역에 배정하였다.** 노후주택비율(house\_age)은 주거 인프라의 물리적 수준을 반영하는 변수로 Infra 영역에 배정하였다. 영역별 세부 배정 내역은 아래 Table 3-6에 제시하였다.
 
