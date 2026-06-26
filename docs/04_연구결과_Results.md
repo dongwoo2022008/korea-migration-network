@@ -515,7 +515,7 @@ SDM 추정 결과, 공간 자기회귀 계수($\rho$)는 -0.0696으로 통계적
 
 분석 결과(Table 4-17 및 4-17b), **보육시설(childcare_pk)**과 **노후주택비율(house_age)**이 각각 1위와 2위를 차지하였다. 이는 주거 환경의 물리적 쾌적성과 보육 등 생활 인프라가 인구 유입에 미치는 영향이 매우 크게 작동함을 의미한다. 이어 근접 중심성(closeness, 2.002)이 3위를 기록하여 네트워크 접근성의 중요성을 입증하였다. 반면 고용률, 사업체수 등 전통적인 경제 변수들은 중하위권에 머물러, 최근의 인구이동이 단순한 경제적 기회보다는 정주 여건(주거·보육·의료)과 네트워크 접근성 등 **영역 수준(Domain-level)의 복합적 요인** 중심으로 재편되고 있음을 시사한다. 한편, 선형 패널모형(FE)과 공간더빈모형(SDM)에서 인과적 핵심 앵커(직접효과 3,119***)로 확인되었던 PageRank 중심성(pagerank_lag1)은 비선형 SHAP 분석에서는 8위(1.215)로 중위권에 위치하였다. 이는 허브 지위의 영향력이 비선형 트리 구조에서는 타 정주 변수들과 교란되거나 비선형적으로 분산됨을 의미하며, 결정요인 해석 시 특정 단일 변수의 순위보다는 정주 여건과 네트워크 지위를 포괄하는 영역 수준의 접근이 타당함을 방증한다.
 
-![Figure 4-14. ML 성능 비교](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_14_ml_performance_comparison.png)
+![Figure 4-14. ML 성능 비교](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_14_ml_performance.png)
 
 **Figure 4-14**는 7개 머신러닝 모형의 Validation(2023) 및 Test(2024) 성능(R² 및 RMSE)을 비교한 차트이다. 트리 앙상블 계열 모형들이 선형 모형(LR) 대비 압도적으로 우수한 예측력을 보이고 있음을 시각적으로 확인할 수 있다.
 
