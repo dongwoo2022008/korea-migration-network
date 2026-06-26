@@ -1,0 +1,4 @@
+﻿Model,AIC,LogL,Spatial_param,Spatial_param_name,Note
+OLS (FE),,,,-,Two-way FE baseline
+SLM,1880.43,-930.22,0.0033,ρ (spatial lag),Captures spatial dependence in DV
+SEM,1878.43,-930.22,-0.0069,λ (spatial error),Captures spatial dependence in errors
