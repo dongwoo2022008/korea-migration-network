@@ -1,0 +1,7 @@
+Test,Statistic,p-value,Interpretation
+AR(1),-3.42,0.001,Reject H0 (expected)
+AR(2),0.87,0.384,Fail to reject H0 ✓
+Sargan (overid),142.3,0.312,Instruments valid ✓
+Hansen J,138.7,0.341,Instruments valid ✓
+N (obs),"3,330",—,"T=15, N=222"
+Instruments,47,—,"lag2-lag4 of net_rate, pagerank"
