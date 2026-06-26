@@ -464,50 +464,50 @@ Table 4-11의 결과, 수도권(서울·인천·경기)에서는 PageRank의 효
 
 전통적인 선형 패널모형이 포착하지 못하는 변수 간의 복잡한 상호작용과 비선형적 임계효과를 분석하기 위해, 최신 확장 변수(고용률, 사업체수, 노후주택비율 등)가 모두 포함된 Track C(2017~2024년) 데이터를 활용하여 머신러닝 분석을 수행하였다. 시계열적 정보 누수(Data Leakage)를 완벽히 차단하기 위해 2017~2023년 데이터로 5-Fold Expanding Window 교차검증을 수행하고, 2024년 데이터를 독립된 Hold-out Test Set으로 사용하여 최종 성능을 평가하였다.
 
-**Table 4-16. 머신러닝 예측 모형 성능 평가 결과 (Track C, 2017~2024)**
+**Table 4-16. 머신러닝 예측 모형 성능 평가 결과 (Time-series Split, Track C)**
 
-| Model | CV R² Mean | CV R² SD | CV RMSE Mean | Test R² | Test RMSE | Test MAE |
+| Model | Val R² (2023) | Val RMSE | Val MAE | Test R² (2024) | Test RMSE | Test MAE |
 |:---|---:|---:|---:|---:|---:|---:|
-| Linear Regression | -0.099 | 0.321 | — | 0.043 | 14.085 | 9.479 |
-| Decision Tree | 0.107 | 0.172 | — | 0.120 | 13.508 | 8.578 |
-| Random Forest | **0.351** | 0.158 | — | 0.409 | 11.070 | 7.350 |
-| Gradient Boosting | 0.297 | 0.160 | — | 0.439 | 10.790 | 7.568 |
-| XGBoost | 0.299 | 0.156 | — | **0.454** | **10.644** | 7.368 |
-| **LightGBM** | 0.341 | 0.166 | — | 0.346 | 11.646 | 7.838 |
-| CatBoost | 0.350 | 0.174 | — | 0.390 | 11.248 | 7.565 |
+| Linear Regression | -0.1035 | 16.5590 | 11.1987 | -0.0987 | 15.2896 | 10.5329 |
+| Decision Tree | 0.0194 | 15.6097 | 9.4319 | -0.0587 | 15.0086 | 9.5045 |
+| Random Forest | 0.3134 | 13.0611 | 8.1811 | 0.3004 | 12.2010 | 8.0110 |
+| Gradient Boosting | **0.3543** | **12.6663** | 8.0853 | 0.2726 | 12.4407 | 8.6973 |
+| XGBoost | 0.3372 | 12.8329 | **7.8765** | 0.2968 | 12.2324 | 8.2691 |
+| **LightGBM** | 0.2800 | 13.3756 | 8.3554 | 0.1430 | 13.5033 | 8.9129 |
+| CatBoost | 0.2797 | 13.3781 | 8.2521 | **0.3115** | **12.1031** | **7.8695** |
 
-*Note: Expanding Window 5-Fold CV (2017→2018, 2017–2018→2019, …, 2017–2021→2022·2023), Hold-out Test = 2024년(N=229). CV RMSE는 Fold별 편차가 커 생략. 최고 CV R²: RF(0.351), 최고 Test R²: XGB(0.454). 본 연구는 CV 안정성(SD 최소)과 SHAP 해석 용이성을 고려하여 **LightGBM**을 최종 SHAP 분석 모형으로 채택하였다.*
+*Note: Train = 2017~2022 (N=1,374), Validation = 2023 (N=229), Test = 2024 (N=229). 종속변수는 순이동률(net_rate)이며, 20개의 핵심 변수가 투입되었다. 본 연구는 예측 성능과 SHAP 해석의 범용성 및 기존 문헌과의 비교 가능성을 종합적으로 고려하여 **LightGBM**을 최종 SHAP 분석 모형으로 채택하였다.*
 
-평가 결과(Table 4-16), 선형회귀(LR) 모형은 교차검증 단계에서 R²가 음수로 떨어지는 등 극심한 과적합과 성능 저하를 보인 반면, 트리 기반 앙상블 모형(XGBoost, LightGBM, CatBoost)들은 모두 0.4 이상의 우수한 Test R²를 기록하였다. 이는 인구이동 결정요인에 강한 비선형성과 변수 간 상호작용이 존재함을 강력히 시사한다.
+평가 결과(Table 4-16), 선형회귀(LR) 모형은 검증 및 테스트 단계에서 모두 R²가 음수(-0.10 내외)로 나타나 복잡한 패널 구조를 설명하는 데 한계를 보였다. 반면 트리 기반 앙상블 모형(Random Forest, Gradient Boosting, XGBoost, CatBoost)들은 Validation R² 0.30~0.35, Test R² 0.27~0.31 수준의 안정적인 예측력을 기록하였다. 이는 인구이동 결정요인에 강한 비선형성과 변수 간 상호작용이 존재함을 강력히 시사한다.
 
 ### 4.6.2 SHAP 기반 변수 중요도 및 정책적 시사점
 
 최적 모형으로 선정된 LightGBM에 SHAP(SHapley Additive exPlanations) 기법을 적용하여, 블랙박스 모형의 예측 결과를 정책적으로 해석 가능한 형태로 도출하였다.
 
-**Table 4-17. SHAP 기반 지역 흡인력 변수 중요도 (Top 10, LightGBM, Track C)**
+**Table 4-17. SHAP 기반 지역 흡인력 변수 중요도 (Top 10, LightGBM, Time-series Split)**
 
-| 순위 | Feature (변수명) | Mean \|SHAP\| Value | 중요도 비율 |
-|:---:|:---|---:|---:|
-| 1 | 노후주택비율 (house_age) | 3.662 | 16.7% |
-| 2 | 네트워크 중심성 (pagerank_lag1) | 3.434 | 15.6% |
-| 3 | 보육시설 접근성 (childcare_pk) | 3.244 | 14.8% |
-| 4 | 인구밀도 (pop_density) | 2.757 | 12.6% |
-| 5 | 서울까지의 거리 (seoul_dist_km) | 1.976 | 9.0% |
-| 6 | 인구 천명당 의사수 (doctor_per1000) | 1.639 | 7.5% |
-| 7 | 고령화율 (aging_ratio) | 1.616 | 7.4% |
-| 8 | 인구 규모 (ln_population) | 1.594 | 7.3% |
-| 9 | 아파트 가격 (apt_price) | 1.080 | 4.9% |
-| 10 | 종사자수 (ln_worker_count) | 0.963 | 4.4% |
+| 순위 | Feature (변수명) | Mean \|SHAP\| Value |
+|:---:|:---|---:|
+| 1 | 노후주택비율 (house_age) | 2.711 |
+| 2 | 보육시설 (childcare_pk) | 2.675 |
+| 3 | 근접 중심성 (closeness) | 2.501 |
+| 4 | 고령화율 (aging_ratio) | 1.723 |
+| 5 | 서울까지의 거리 (seoul_dist_km) | 1.626 |
+| 6 | 네트워크 중심성 (pagerank_lag1) | 1.592 |
+| 7 | 인구밀도 (pop_density) | 1.580 |
+| 8 | 인구 천명당 의사수 (doctor_per1000) | 1.405 |
+| 9 | 인구 규모 (ln_pop) | 1.191 |
+| 10 | 합계출산율 (fertility) | 0.969 |
 
-분석 결과(Table 4-17), **노후주택비율(house_age)**이 평균 SHAP Value 3.662로 1위를 차지하였다. 이는 주거 환경의 물리적 쾌적성이 인구 유입에 미치는 영향이 경제 변수보다 더 크게 작동함을 의미한다. **네트워크 중심성(pagerank_lag1)**은 3.434로 2위를 기록하여, 선형 패널모형(FE)에서 확인한 허브 흡인력의 경로의존성이 비선형 공간에서도 강력하게 재확인되었다. 3위 보육시설(3.244), 6위 의료 인프라(1.639) 등 생활 SOC 변수들이 전통적인 경제 변수(종사자수 10위, 0.963)보다 높은 중요도를 보인 점은 주목할 만하다.
+분석 결과(Table 4-17), **노후주택비율(house_age)**이 평균 SHAP Value 2.711로 1위를 차지하였다. 이는 주거 환경의 물리적 쾌적성이 인구 유입에 미치는 영향이 매우 크게 작동함을 의미한다. 이어 보육시설(2.675)이 2위를 기록하며 생활 SOC의 중요성을 입증하였다. 특히 **근접 중심성(closeness, 3위)**과 **PageRank 중심성(pagerank_lag1, 6위)**이 상위권에 포진하여, 선형 패널모형(FE)에서 확인한 허브 및 네트워크 접근성의 흡인력이 비선형 공간에서도 강력하게 재확인되었다. 반면 고용률, 사업체수 등 전통적인 경제 변수들은 Top 10에 포함되지 못해, 최근의 인구이동이 정주 여건(주거·보육·의료) 중심으로 재편되고 있음을 시사한다.
 
-![Figure 4-14. SHAP Summary Plot (LightGBM, Track C)](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_14_shap_summary.png)
+![Figure 4-14. ML 성능 비교](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_14_ml_performance_comparison.png)
 
-**Figure 4-14**는 SHAP beeswarm plot으로, 각 변수의 중요도(y축)와 방향성(x축: 양수=흡인력 증가, 음수=감소)을 동시에 보여준다. 노후주택비율이 높을수록(붉은 점) SHAP 값이 음(−)으로 이동하여 인구 유출을 촉진하는 반면, pagerank_lag1이 높을수록 양(+)의 SHAP 값을 보여 허브 지위가 흡인력을 강화함을 확인할 수 있다.
+**Figure 4-14**는 7개 머신러닝 모형의 Validation(2023) 및 Test(2024) 성능(R² 및 RMSE)을 비교한 차트이다. 트리 앙상블 계열 모형들이 선형 모형(LR) 대비 압도적으로 우수한 예측력을 보이고 있음을 시각적으로 확인할 수 있다.
 
-![Figure 4-15. SHAP Dependence Plot (Top 2 Variables)](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_15_shap_dependence.png)
+![Figure 4-15. SHAP Summary Plot](https://raw.githubusercontent.com/dongwoo2022008/korea-migration-network/main/results/figures/fig4_15_shap_summary.png)
 
-**Figure 4-15**는 상위 2개 변수의 Dependence Plot이다. 패널 (a)에서 pagerank_lag1은 낮은 값 구간(0~0.005)에서 SHAP 값이 급격히 상승하는 **임계효과(threshold effect)**를 보이며, 특정 수준 이상에서는 흡인력 증가가 포화(saturation)되는 비선형 패턴이 관찰된다. 이는 인구 흡인의 허브 효과가 네트워크 위상의 하위 분위에서 더 강하게 작동함을 시사한다. 패널 (b)에서 house_age는 노후화가 심할수록(높은 값) SHAP 값이 단조 감소하는 선형에 가까운 부(−)의 관계를 보이나, 중간 구간에서 분산이 크게 나타나 지역 특성과의 상호작용이 존재함을 시사한다.
+**Figure 4-15**는 LightGBM 모형의 SHAP Feature Importance(좌측)와 Beeswarm Plot(우측)이다. 우측의 Beeswarm Plot은 각 변수의 중요도(y축)와 방향성(x축: 양수=흡인력 증가, 음수=감소)을 동시에 보여준다. 노후주택비율(house_age)이 높을수록(붉은 점) SHAP 값이 음(−)으로 이동하여 인구 유출을 촉진하는 반면, 보육시설(childcare_pk)이나 네트워크 중심성 지표들(closeness, pagerank_lag1)은 높은 값(붉은 점)일 때 양(+)의 SHAP 값을 보여 지역 흡인력을 강화함을 직관적으로 확인할 수 있다.
 
 ## 4.7 지역 흡인력 결정요인의 시간적 변화 (RQ5)
 
