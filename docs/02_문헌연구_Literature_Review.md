@@ -67,6 +67,8 @@
 [17] LeSage, J., & Pace, R. K. (2009). *Introduction to Spatial Econometrics*. CRC Press. https://doi.org/10.1201/9781420064254
 [18] Pu, Y., Zhao, X., & Chi, G. (2021). Spatial dynamic panel model of internal migration in China. *Population, Space and Place*, 27(6), e2429. https://doi.org/10.1002/psp.2429
 [19] Sahin, S., et al. (2026). Analysing the impact of migration flows on regional per capita GDP in Türkiye: a spatial panel data approach. *Post-Soviet Economics*.
+[19-1] Levin, A., Lin, C. F., & Chu, C. S. J. (2002). Unit root tests in panel data: asymptotic and finite-sample properties. *Journal of Econometrics*, 108(1), 1-24. https://doi.org/10.1016/S0304-4076(01)00098-7
+[19-2] Im, K. S., Pesaran, M. H., & Shin, Y. (2003). Testing for unit roots in heterogeneous panels. *Journal of Econometrics*, 115(1), 53-74. https://doi.org/10.1016/S0304-4076(03)00092-7
 [20] 전명진. (2014). 수도권 인구이동의 결정요인에 관한 연구: 공간계량경제모형의 적용. *국토계획*, 49(5), 97-111.
 [21] 이희연, 황명화. (2011). 전국 시군구의 인구이동 패턴과 공간적 상호작용. *한국경제지리학회지*, 23(4), 605-625.
 [22] 이찬영, 이흥후. (2016). 청년층의 지역 간 인구이동 결정요인 분석. *지역연구*, 32(3), 3-21.
@@ -75,3 +77,5 @@
 [25] Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. In *Proceedings of the 22nd ACM SIGKDD International Conference on Knowledge Discovery and Data Mining* (pp. 785-794). https://doi.org/10.1145/2939672.2939785
 [26] Lundberg, S. M., & Lee, S. I. (2017). A unified approach to interpreting model predictions. In *Advances in Neural Information Processing Systems* (Vol. 30).
 [27] Shangguan, Z. (2025). An Explainable Machine-Learning Framework Based on XGBoost-SHAP and Big Data for Revealing the Socioeconomic Drivers of Population Urbanization in China. *Systems*, 13(8), 679. https://doi.org/10.3390/systems13080679
+[28] Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., & Gulin, A. (2018). CatBoost: unbiased boosting with categorical features. In *Advances in Neural Information Processing Systems* (Vol. 31).
+[29] Akiba, T., Sano, S., Yanase, T., Ohta, T., & Koyama, M. (2019). Optuna: A next-generation hyperparameter optimization framework. In *Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining* (pp. 2623-2631). https://doi.org/10.1145/3292500.3330701
