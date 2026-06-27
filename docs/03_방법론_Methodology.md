@@ -288,7 +288,7 @@ $$y_{it} = \rho \sum_{j=1}^{N} W_{ij} y_{jt} + \beta_1 PageRank_{i,t-1} + \sum_{
 | Gradient Boosting | GB | 앙상블 (부스팅) |
 | XGBoost | XGB | 주력 부스팅 모형 |
 | LightGBM | LGBM | 주력 부스팅 모형 |
-| CatBoost | CAT | 범주형 변수 특화 |
+| CatBoost | CAT | 범주형 변수 특화 [13] |
 
 실제 분석 결과(자세한 내용은 §4.6 참조), 비선형 트리 기반 앙상블 모델들이 선형 회귀 모형 대비 압도적인 설명력을 보여 지역 흡인력 결정 과정에 강한 비선형성이 존재함을 시사하였다. 본 연구는 예측 성능과 SHAP 기반 모델 해석의 안정성을 종합적으로 고려하여 최적의 모형을 최종 SHAP 분석 모형으로 채택하였다.
 
@@ -369,7 +369,7 @@ $$RAI_i^{Total} = w_{Econ}\,Z(S_{Econ,i}) + w_{Demo}\,Z(S_{Demo,i}) + w_{Infra}\
 
 본 연구에서 활용하는 모든 데이터는 통계청, 행정안전부, 건강보험심사평가원 등 공공기관의 공식 통계로서 개인정보를 포함하지 않는 집계 데이터이다. 분석에 활용된 코드 및 데이터 전처리 스크립트는 GitHub 저장소(`dongwoo2022008/korea-migration-network`)에 공개하여 연구의 재현 가능성(Reproducibility)을 보장한다.
 
-모든 분석은 **Python 3.11** 환경에서 수행되었으며, 주요 패키지는 다음과 같다: `pandas 2.2`, `geopandas 0.14`, `networkx 3.2`, `linearmodels 6.0`, `pysal 23.7`, `xgboost 2.0`, `lightgbm 4.1`, `catboost 1.2`, `shap 0.44`, `optuna 3.4`. 전체 의존성 목록은 GitHub 저장소의 `requirements.txt`에 명시되어 있어 연구 환경의 완전한 재현이 가능하다.
+모든 분석은 **Python 3.11** 환경에서 수행되었으며, 주요 패키지는 다음과 같다: `pandas 2.2`, `geopandas 0.14`, `networkx 3.2`, `linearmodels 6.0`, `pysal 23.7`, `xgboost 2.1`, `lightgbm 4.3`, `catboost 1.2` [13], `shap 0.46`, `optuna 3.6` [14]. 전체 의존성 목록은 GitHub 저장소의 `requirements.txt`에 명시되어 있어 연구 환경의 완전한 재현이 가능하다.
 
 ---
 
