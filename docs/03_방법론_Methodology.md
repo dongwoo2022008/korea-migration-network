@@ -129,7 +129,7 @@ RQ1·RQ4 대응                      RQ2·RQ3 대응 (RQ6 기간분할 FE 일부
 
 ### 3.3.6. 패널 정상성 검정 및 공적분 검토
 
-장기 패널자료를 활용하는 본 연구에서 비정상(Non-stationary) 변수를 그대로 회귀분석에 투입할 경우 허구적 회귀(Spurious Regression) 문제가 발생할 수 있다. 이를 방지하고 정상성을 교차 확인하기 위해 LLC(Levin-Lin-Chu), IPS(Im-Pesaran-Shin), Fisher-ADF 3종의 패널 단위근 검정을 병행하였다(부록 Table 4-A1 참조).
+장기 패널자료를 활용하는 본 연구에서 비정상(Non-stationary) 변수를 그대로 회귀분석에 투입할 경우 허구적 회귀(Spurious Regression) 문제가 발생할 수 있다. 이를 방지하고 정상성을 교차 확인하기 위해 LLC(Levin-Lin-Chu) [11], IPS(Im-Pesaran-Shin) [12], Fisher-ADF 3종의 패널 단위근 검정을 병행하였다(부록 Table 4-A1 참조).
 
 검정 결과, 종속변수인 순이동률(`net_rate`)을 비롯하여 `pagerank`, `youth_ratio`, `fiscal_indep`, `extinction_risk` 등 핵심 변수들은 3종 검정 모두에서 귀무가설(단위근 존재)이 기각되어 수준에서 정상성(I(0))을 확보한 것으로 나타났다. 
 
@@ -304,7 +304,7 @@ $$y_{it} = \rho \sum_{j=1}^{N} W_{ij} y_{jt} + \beta_1 PageRank_{i,t-1} + \sum_{
 
 ### 3.6.2. SHAP 기반 변수 중요도 분석
 
-최적 모형에 **SHAP (SHapley Additive exPlanations)** 기법을 적용하여 변수 중요도(Feature Importance)를 추출하고, 지역 흡인력의 비선형적 임계점(Threshold)을 규명한다 [7]. 머신러닝 모델은 일반적으로 우수한 예측 성능을 보이지만, 해석 가능성의 한계로 인해 정책 적용에 어려움이 있다. SHAP은 게임 이론의 Shapley 값을 기반으로 각 변수가 개별 예측에 기여하는 정도를 정량화하여 이러한 한계를 극복한다.
+최적 모형에 **SHAP (SHapley Additive exPlanations)** 기법을 적용하여 변수 중요도(Feature Importance)를 추출하고, 지역 흡인력의 비선형적 임계점(Threshold)을 규명한다 [7]. CatBoost 모형의 하이퍼파라미터 튜닝은 Optuna 프레임워크 [14]를 활용하여 TPESampler 기반으로 80회 반복 수행하였다. 머신러닝 모델은 일반적으로 우수한 예측 성능을 보이지만, 해석 가능성의 한계로 인해 정책 적용에 어려움이 있다. SHAP은 게임 이론의 Shapley 값을 기반으로 각 변수가 개별 예측에 기여하는 정도를 정량화하여 이러한 한계를 극복한다.
 
 **Table 3-10. SHAP 분석 출력물 계획**
 
@@ -320,7 +320,7 @@ $$y_{it} = \rho \sum_{j=1}^{N} W_{ij} y_{jt} + \beta_1 PageRank_{i,t-1} + \sum_{
 
 ### 3.6.3. 지역 흡인력 지수(RAI) 산출
 
-SHAP 분석 결과를 바탕으로 각 지역의 **지역 흡인력 지수(Regional Attractiveness Index, RAI)**를 산출한다. 단순 예측값과의 차별성을 확보하고 지수 구성의 이론적 타당성을 높이기 위해, SHAP 값을 4개 영역으로 묶어 하위 지수(Sub-index)화한 후 Z-score로 표준화하여 종합 지수(Total RAI)를 도출한다.
+SHAP 분석 결과를 바탕으로 각 지역의 **지역 흡인력 지수(Regional Attractiveness Index, RAI)**를 산출한다. RAI는 선행연구에서 논의된 장소 매력도(Place Attractiveness) 개념 [15][16]을 정량화한 것으로, 특정 지역이 인구를 유입시킬 수 있는 구조적 잠재력을 측정한다. 단순 예측값과의 차별성을 확보하고 지수 구성의 이론적 타당성을 높이기 위해, SHAP 값을 4개 영역으로 묶어 하위 지수(Sub-index)화한 후 Z-score로 표준화하여 종합 지수(Total RAI)를 도출한다.
 
 $$RAI_i^{Total} = w_{Econ}\,Z(S_{Econ,i}) + w_{Demo}\,Z(S_{Demo,i}) + w_{Infra}\,Z(S_{Infra,i}) + w_{Serv}\,Z(S_{Serv,i})$$
 
@@ -394,3 +394,15 @@ $$RAI_i^{Total} = w_{Econ}\,Z(S_{Econ,i}) + w_{Demo}\,Z(S_{Demo,i}) + w_{Infra}\
 [9] Arellano, M., & Bond, S. (1991). Some tests of specification for panel data: Monte Carlo evidence and an application to employment equations. *The Review of Economic Studies*, 58(2), 277–297. https://doi.org/10.2307/2297968
 
 [10] Lee, L. F., & Yu, J. (2010). Estimation of spatial autoregressive panel data models with fixed effects. *Journal of Econometrics*, 154(2), 165–185. https://doi.org/10.1016/j.jeconom.2009.08.001
+
+[11] Levin, A., Lin, C. F., & Chu, C. S. J. (2002). Unit root tests in panel data: asymptotic and finite-sample properties. *Journal of Econometrics*, 108(1), 1-24. https://doi.org/10.1016/S0304-4076(01)00098-7
+
+[12] Im, K. S., Pesaran, M. H., & Shin, Y. (2003). Testing for unit roots in heterogeneous panels. *Journal of Econometrics*, 115(1), 53-74. https://doi.org/10.1016/S0304-4076(03)00092-7
+
+[13] Prokhorenkova, L., Gusev, G., Vorobev, A., Dorogush, A. V., & Gulin, A. (2018). CatBoost: unbiased boosting with categorical features. *Advances in Neural Information Processing Systems*, 31.
+
+[14] Akiba, T., Sano, S., Yanase, T., Ohta, T., & Koyama, M. (2019). Optuna: A next-generation hyperparameter optimization framework. *Proceedings of the 25th ACM SIGKDD International Conference on Knowledge Discovery & Data Mining*, 2623-2631. https://doi.org/10.1145/3292500.3330701
+
+[15] Niedomysl, T. (2010). Towards a conceptual framework of place attractiveness: A migration perspective. *Geografiska Annaler: Series B, Human Geography*, 92(1), 97-109.
+
+[16] Haase, A., Haase, A., & Rink, D. (2021). Conceptualizing place attractiveness for migration. *Population, Space and Place*, 27(6), e2427.

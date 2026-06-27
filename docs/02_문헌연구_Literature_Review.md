@@ -60,13 +60,13 @@
 [10] Tranos, E., Gheasi, M., & Nijkamp, P. (2015). International migration: A global complex network analysis. *Regional Studies*, 49(1), 4-22. https://doi.org/10.1080/00343404.2014.964666
 [11] Gürsoy, S., & Badur, D. (2022). Network analysis of internal migration in Turkey. *Physica A: Statistical Mechanics and its Applications*, 596, 127138. https://doi.org/10.1016/j.physa.2022.127138
 [12] Xu, X., Hu, Y., & Wang, F. (2025). Unraveling the COVID-19 impact on spatiotemporal dynamics of U.S. domestic migration: A network perspective. *The Professional Geographer*, 77(2), 104-120. https://doi.org/10.1080/00330124.2025.2455188
-[13] Sarra, A., Di Caro, P., & Nissi, E. (2025). A network analysis of skill-specific internal migration flows in Italy. *Socio-Economic Planning Sciences*, 100, 102225. https://doi.org/10.1016/j.seps.2025.102225
+[13] Sarra, A., D'Ingiullo, D., Evangelista, A., Nissi, E., Quaglione, D., & Di Battista, T. (2025). A network analysis of skill-specific internal migration flows in Italy. *Socio-Economic Planning Sciences*, 100, 102225. https://doi.org/10.1016/j.seps.2025.102225
 [14] Chen, Y., Tao, R., Ma, Q., & Wang, M. (2025). Shrinking cities in China's urban network: a data-driven exploration of migration and investment flows. *Applied Geography*, 180, 103596. https://doi.org/10.1016/j.apgeog.2025.103596
 [15] 이상현, 오윤경. (2017). 시계열 인구이동 자료를 활용한 네트워크 연결중심성 분석. *국토계획*, 52(4), 115-131.
 [16] Anselin, L. (1988). *Spatial Econometrics: Methods and Models*. Kluwer Academic Publishers.
 [17] LeSage, J., & Pace, R. K. (2009). *Introduction to Spatial Econometrics*. CRC Press. https://doi.org/10.1201/9781420064254
 [18] Pu, Y., Zhao, X., & Chi, G. (2019). Spatial dynamic panel model of internal migration in China. *Demographic Research*, 41(31), 873-904. https://doi.org/10.4054/DemRes.2019.41.31
-[19] Sahin, S., et al. (2026). Analysing the impact of migration flows on regional per capita GDP in Türkiye: a spatial panel data approach. *Public Sector Economics*, 50(2), 259-286.
+[19] Sahin, S., et al. (2026). Analysing the impact of migration flows on regional per capita GDP in Türkiye: a spatial panel data approach. *Public Sector Economics*, 50(2), 259-286. https://doi.org/10.3326/pse.50.2.4
 [19-1] Levin, A., Lin, C. F., & Chu, C. S. J. (2002). Unit root tests in panel data: asymptotic and finite-sample properties. *Journal of Econometrics*, 108(1), 1-24. https://doi.org/10.1016/S0304-4076(01)00098-7
 [19-2] Im, K. S., Pesaran, M. H., & Shin, Y. (2003). Testing for unit roots in heterogeneous panels. *Journal of Econometrics*, 115(1), 53-74. https://doi.org/10.1016/S0304-4076(03)00092-7
 [19-3] Wu, J., & Liu, Y. (2022). Stability and change in China's geography of intercity migration. *Population, Space and Place*, 28(6), e2570. https://doi.org/10.1002/psp.2570
