@@ -56,7 +56,7 @@ Im, K. S., Pesaran, M. H., & Shin, Y. (2003). Testing for unit roots in heteroge
 
 Jeong, S., Kim, Y., & Yoon, J. (2025). Analyzing the Influences of Economic Opportunity and Residential Substitutability on Population Migration by Age Group. *Journal of Korea Planning Association*, 60(4), 38-59.
 
-Kim, Y., Lee, J., & Park, S. (2025). Machine learning prediction of depression in culturally diverse families. *Frontiers in Public Health*, 13, 1666084. https://doi.org/10.3389/fpubh.2025.1666084
+Kim, W., Jeong, J., & Yoon, D. K. (2025). Analysis of multiple gravitational influences on interregional population migration in South Korea. *Regional Studies*, 59(1), Article 2385560. https://doi.org/10.1080/00343404.2024.2385560
 
 Krugman, P. (1991). Increasing returns and economic geography. *Journal of Political Economy*, 99(3), 483-499. https://doi.org/10.1086/261763
 
